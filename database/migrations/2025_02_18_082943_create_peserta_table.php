@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('grup_id');
             $table->foreign('grup_id')->references('id')->on('grup');
-            $table->string('nama');
-            $table->string('posisi');
-            $table->string( 'foto');
+            $table->string('nama')->nullable();
+            $table->string('posisi')->nullable();
+            $table->string( 'foto')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
