@@ -1,8 +1,8 @@
 <footer class="app-footer">
     <div class="float-end d-none d-sm-inline">Anything you want</div>
     <strong>
-        Copyright &copy; 2014-2024&nbsp;
-        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+        Copyright &copy; {{date('Y')}}&nbsp;
+        <a href="https://ride.dasayarenterprise.com/" class="text-decoration-none">PT. Ride Media Corporindo</a>.
     </strong>
-        All rights reserved.
+        Sipenpas {{date('Y')}}
 </footer>
