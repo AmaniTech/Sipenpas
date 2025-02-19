@@ -19,6 +19,14 @@ class RegistrasiController extends Controller
     {
         FacadesDB::beginTransaction();
         try {
+
+            $request->validate([
+                'asal_sekolah' => 'required',
+                'tim' => 'required',
+                'tingkatan' => 'required',
+                'no_hp' => 'required',
+            ]);
+
             $bukti_pembayaran = $request->file('bukti_pembayaran');
             $bukti_pembayaran->store('bukti_pembayaran', 'public');
 
@@ -44,8 +52,9 @@ class RegistrasiController extends Controller
                 }
 
                 Peserta::create([
+                    'grup_id' => $grup->id,
                     'nama' => $pesertaName,
-                    'peran' => $role,
+                    'posisi' => $role,
                     'foto' => $fotoPath,
                 ]);
             }
@@ -53,12 +62,10 @@ class RegistrasiController extends Controller
 
 
             FacadesDB::commit();
-
             return redirect()->back()->with('success', 'Registrasi berhasil');
         } catch (\Exception $e) {
             FacadesDB::rollback();
-           dd($e);
-
+            return redirect()->back()->with('error', 'Registrasi gagal ! ' . $e->getMessage());
         }
     }
 }
