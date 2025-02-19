@@ -23,8 +23,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [LoginController::class, 'home']);
     Route::get('/out', [LoginController::class, 'logout']);
 
-    Route::get('/kategori', [KategoriController::class, 'index']);
-    Route::get('/get-kategori', [KategoriController::class, 'ajaxData'])->name('kategori.data');
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/kategori/delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
 
     Route::get('/juri', [JuriController::class, 'index']);
     Route::post('/a/juri', [JuriController::class, 'add']);

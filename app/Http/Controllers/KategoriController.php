@@ -26,9 +26,11 @@ class KategoriController extends Controller
                 'nama' => $request->nama,
             ]);
 
-            return redirect()->route('kategori.index')->with('success', 'Data berhasil ditambahkan');
+            toast('Tambah Sukses!', 'success');
+            return redirect()->route('kategori.index');
         } catch (\Exception $e) {
-            return redirect()->route('kategori.index')->with('error', 'Data gagal ditambahkan');
+            toast($e->getMessage(), 'error');
+            return redirect()->route('kategori.index');
         }
     }
 
@@ -43,11 +45,26 @@ class KategoriController extends Controller
                 'nama' => $request->nama,
             ]);
 
-            return redirect()->route('kategori.index')->with('success', 'Data berhasil diubah');
+            toast('Update Sukses!', 'success');
+            return redirect()->route('kategori.index');
         } catch (\Exception $e) {
-            return redirect()->route('kategori.index')->with('error', 'Data gagal diubah');
+            toast('Update Gagal!', 'error');
+            return redirect()->route('kategori.index');
         }
     }
+
+    public function delete($id)
+    {
+        try {
+            Kategori::find($id)->delete();
+            toast('Hapus Sukses!', 'success');
+            return redirect()->route('kategori.index');
+        } catch (\Exception $e) {
+            toast('Hapus Gagal!', 'error');
+            return redirect()->route('kategori.index');
+        }
+    }
+}
 
     // public function ajaxData()
     // {
@@ -60,4 +77,3 @@ class KategoriController extends Controller
     //         ->rawColumns(['action'])
     //         ->make(true);
     // }
-}
