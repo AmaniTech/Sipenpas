@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <button type="button" class="btn btn-primary mb-3" >Tambah Data</button>
+                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addJuri">Tambah Data</button>
                                 
                                 <table class="table table-bordered">
                                     <thead>
@@ -54,10 +54,39 @@
                                                 <td>{{$j->nama}}</td>
                                                 <td>{{$j->created_at}}</td>
                                                 <td>
-                                                    <a href='/juri/{{$j->id}}' class="btn btn-warning border border-white tombol-rtm-public">Edit</a>
-                                                    <a href='' class="btn btn-danger border border-white" target="_blank">Delete</a>
+                                                    <button href='' class="btn btn-warning border border-white" data-bs-toggle="modal" data-bs-target="#ejuri_{{$j->id}}">Edit</button>
+                                                    <form action="/d/juri/{{$j->id}}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger border border-white">Delete</button>
+                                                    </form>
+
                                                 </td>
                                             </tr>
+
+                                            <div class="modal fade" id="ejuri_{{$j->id}}" tabindex="-1" aria-labelledby="ejuri_{{$j->id}}Label" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="ejuri_{{$j->id}}Label">Edit Data</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('juri.delete', $j->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="mb-3">
+                                                                <label for="nama_juri" class="form-label">Nama Juri</label>
+                                                                <input type="text" class="form-control" id="nama_juri" name="juri" value="{{$j->nama}}">
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -65,6 +94,29 @@
                             <div class="card-footer"></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addJuri" tabindex="-1" aria-labelledby="addJuriLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addJuriLabel">Tambah Data</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <form action="/a/juri" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama_juri" class="form-label">Nama Juri</label>
+                            <input type="text" class="form-control" id="nama_juri" name="juri">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
                 </div>
             </div>
         </div>

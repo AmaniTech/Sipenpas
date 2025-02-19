@@ -21,6 +21,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Juri
     Route::get('/juri', [JuriController::class, 'index']);
+    Route::post('/a/juri', [JuriController::class, 'add']);
+    Route::put('/u/juri/{id}', [JuriController::class, 'update']);
+    Route::delete('/d/juri/{id}', [JuriController::class, 'delete'])->name('juri.delete');
 });
 
 
