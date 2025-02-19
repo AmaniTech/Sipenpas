@@ -23,7 +23,9 @@ class SubKategoriController extends Controller
                 return $data->kategori->nama;
             })
             ->addColumn('action', function ($data) {
-                return '<button type="button" class="btn btn-warning border border-white"
+                return '
+                <a href="/listpoin/' . $data->id . '" class="btn btn-primary border border-white">Set Poin</a>
+                <button type="button" class="btn btn-warning border border-white"
                 onclick="showEditModal(' . $data->id . ', \'' . addslashes($data->nama) . '\', ' . $data->kategori_id . ')">
                 Edit
             </button>  <form action="/subkategori/delete/' . $data->id . '" method="POST" style="display:inline;">
@@ -77,4 +79,5 @@ class SubKategoriController extends Controller
             return redirect()->route('subkategori.index');
         }
     }
+
 }

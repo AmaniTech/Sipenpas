@@ -166,10 +166,12 @@
         $(document).ready(function() {
             var ajaxdata = '{{ route('subkategori.data') }}';
             $('#kategori').select2({
-                theme: 'bootstrap-5'
+                theme: 'bootstrap-5',
+                dropdownParent: $("#addSubKategori")
             });
             $('#editKategori').select2({
-                theme: 'bootstrap-5'
+                theme: 'bootstrap-5',
+                dropdownParent: $("#editSubkategoriModal")
             });
 
             $('#dtable').DataTable({

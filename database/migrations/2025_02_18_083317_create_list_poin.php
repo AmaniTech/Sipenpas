@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sub_kategori_id');
             $table->foreign('sub_kategori_id')->references('id')->on('sub_kategori');
-            $table->integer('poin');
+            $table->integer('min_poin');
+            $table->integer('max_poin');
+            $table->string( 'level');
             $table->boolean('is_minus');
             $table->timestamps();
             $table->softDeletes();
