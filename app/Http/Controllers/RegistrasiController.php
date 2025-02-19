@@ -19,8 +19,17 @@ class RegistrasiController extends Controller
     {
         FacadesDB::beginTransaction();
         try {
-            $bukti_pembayaran = $request->file('bukti_pembayaran');
-            $bukti_pembayaran->store('bukti_pembayaran', 'public');
+
+            $request->validate([
+                'asal_sekolah' => 'required',
+                'tim' => 'required',
+                'tingkatan' => 'required',
+                'no_hp' => 'required',
+            ]);
+
+            $filebukti = "bayar_{$request->asal_sekolah}_{$request->tim}." . $request->file("bukti_pembayaran")->getClientOriginalExtension();
+            $bukti_pembayaran = $request->file("bukti_pembayaran");
+            $bukti_pembayaran->storeAs('bukti_pembayaran', $filebukti , 'public');
 
             $grup = Grup::create([
                 'asal_sekolah' => $request->asal_sekolah,
@@ -37,28 +46,28 @@ class RegistrasiController extends Controller
 
             foreach ($roles as $index => $role) {
                 $pesertaName = $request->peserta[$index] ?? null;
-                $fotoPath = null;
+                $filename = null;
 
                 if ($request->hasFile("foto_peserta.$index")) {
-                    $fotoPath = $request->file("foto_peserta.$index")->store('peserta_foto', 'public');
+                    $filename = "{$pesertaName}_{$request->asal_sekolah}_{$request->tim}." . $request->file("foto_peserta.$index")->getClientOriginalExtension();
+                    $request->file("foto_peserta.$index")->storeAs('peserta_foto', $filename, 'public');
                 }
 
                 Peserta::create([
+                    'grup_id' => $grup->id,
                     'nama' => $pesertaName,
-                    'peran' => $role,
-                    'foto' => $fotoPath,
+                    'posisi' => $role,
+                    'foto' => $filename,
                 ]);
             }
 
 
 
             FacadesDB::commit();
-
             return redirect()->back()->with('success', 'Registrasi berhasil');
         } catch (\Exception $e) {
             FacadesDB::rollback();
-           dd($e);
-
+            return redirect()->back()->with('error', 'Registrasi gagal ! ' . $e->getMessage());
         }
     }
 }

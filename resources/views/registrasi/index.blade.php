@@ -14,225 +14,308 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/dist/css/adminlte.css" />
-
+    <link rel="stylesheet" href="/icon/phospor/src/regular/style.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="d-flex justify-content-center mt-5">
-            <div class="w-50">
+            <div class="w-100 mb-5">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Registrasi Grup</h3>
+                        <h3 class="card-title">Formulir Pendaftaran Grup</h3>
                     </div>
-
                     <div class="card-body">
                         <form action="{{ route('registrasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group mb-3
-                                ">
-                                <label for="nama">Asal Sekolah</label>
-                                <input type="text" name="asal_sekolah" id="nama" class="form-control">
+                            <div class="mx-auto">
+                                @if (session('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('success') }}
+                                    </div>
+                                @elseif(session('error'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                             </div>
-                            <div class="form-group mb-3
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Data Grup</h4>
+                                    <div class="form-group mb-3
                                 ">
-                                <label for="nama">Tingkatan</label>
-                                <input type="text" name="tingkatan" id="nama" class="form-control">
+                                        <label for="nama">Asal Sekolah</label>
+                                        <input type="text" name="asal_sekolah" id="nama" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-3
+                                ">
+                                        <label for="nama">Tingkatan</label>
+                                        <input type="text" name="tingkatan" id="nama" class="form-control">
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="tim">Tim</label>
+                                        <input type="text" name="tim" id="tim" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="nohp">No Hp</label>
+                                        <input type="text" name="no_hp" id="no_hp" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="bukti_pembayaran">Bukti Pembayaran</label>
+                                        <input type="file" name="bukti_pembayaran" id="bukti_pembayaran"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="border-left: 1px solid #dddddd;">
+                                    <h4>Data Anggota</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="peserta">Nama Official</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Pelatih</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Danton</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 1</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 2</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 3</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="peserta">Nama Anggota 4</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 5</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 6</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 7</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 8</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 9</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 10</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 11</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 12</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 13</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 14</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="peserta">Nama Anggota 15</label>
+                                                <input type="text" name="peserta[]" id="peserta"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="foto_peserta">Foto Official</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Pelatih</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Danton</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 1</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 2</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 3</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 4</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 5</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 6</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div
+                                                class="form-group mb-3
+                                                ">
+                                                <label for="foto_peserta">Foto Anggota 7</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 8</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 9</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 10</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 11</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 12</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 13</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 14</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3
+                                            ">
+                                                <label for="foto_peserta">Foto Anggota 15</label>
+                                                <input type="file" name="foto_peserta[]" id="foto_peserta"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
 
-                            <div class="form-group mb-3">
-                                <label for="email">Tim</label>
-                                <input type="text" name="tim" id="email" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="email">NO Hp</label>
-                                <input type="text" name="no_hp" id="no_hp" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="bukti_pembayaran">Bukti Pembayaran</label>
-                                <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control">
-                            </div>
-                            <hr>
-                            <div class="form-group mb-3">
-                                <label for="peserta">Official</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="foto_peserta">Foto Official</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Pelatih</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Pelatih</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Danton</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Danton</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 1</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 1</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 2</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 2</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 3</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 3</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 4</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 4</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 5</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 5</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 6</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 6</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 7</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 7</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 8</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 8</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 9</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 9</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 10</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 10</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 11</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 11</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 12</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 12</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 13</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 13</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 14</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 14</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="peserta">Anggota 15</label>
-                                <input type="text" name="peserta[]" id="peserta" class="form-control">
-                            </div>
-                            <div class="form-group mb-3
-                                ">
-                                <label for="foto_peserta">Foto Anggota 15</label>
-                                <input type="file" name="foto_peserta[]" id="foto_peserta" class="form-control">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Daftar</button>
+                            <button type="submit" class="btn btn-primary btn-md d-flex ms-auto mt-3">Daftar &nbsp; <i
+                                    class="ph ph-clipboard-text my-auto"></i></button>
                         </form>
                     </div>
 
