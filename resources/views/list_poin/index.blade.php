@@ -96,19 +96,19 @@
                                                                 <label for="nama" class="form-label">Level</label>
                                                                 <select class="form-select" name="level" id="">
                                                                     <option value="5"
-                                                                        @if ($lp->level == '5') selected @endif>A
+                                                                        @if ($lp->level == 'A') selected @endif>A
                                                                     </option>
                                                                     <option value="4"
-                                                                        @if ($lp->level == '4') selected @endif>B
+                                                                        @if ($lp->level == 'B') selected @endif>B
                                                                     </option>
                                                                     <option value="3"
-                                                                        @if ($lp->level == '3') selected @endif>C
+                                                                        @if ($lp->level == 'C') selected @endif>C
                                                                     </option>
                                                                     <option value="2"
-                                                                        @if ($lp->level == '2') selected @endif>K
+                                                                        @if ($lp->level == 'K') selected @endif>K
                                                                     </option>
                                                                     <option value="1"
-                                                                        @if ($lp->level == '1') selected @endif>SK
+                                                                        @if ($lp->level == 'SK') selected @endif>SK
                                                                     </option>
                                                                 </select>
                                                             </div>

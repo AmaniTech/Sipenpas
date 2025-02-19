@@ -32,6 +32,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
     Route::delete('/kategori/delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
 
+    Route::get('/kategori/print/{kategori}', [KategoriController::class, 'print'])->name('listpoin.print');
+
+
     Route::get('/subkategori', [SubKategoriController::class, 'index'])->name('subkategori.index');
     Route::get('/subkategori/data', [SubKategoriController::class, 'ajaxdata'])->name('subkategori.data');
     Route::post('/subkategori/store', [SubKategoriController::class, 'store'])->name('subkategori.store');
@@ -42,7 +45,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/listpoin/store', [ListPoinController::class, 'store'])->name('listpoin.store');
     Route::put('/listpoin/update/{id}', [ListPoinController::class, 'update'])->name('listpoin.update');
     Route::delete('/listpoin/delete/{id}', [ListPoinController::class, 'delete'])->name('listpoin.delete');
-
 
 
     Route::get('/juri', [JuriController::class, 'index'])->name('juri.index');
