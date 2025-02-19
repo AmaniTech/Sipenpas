@@ -3,6 +3,7 @@
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\JuriController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +15,8 @@ Route::get('/login', function () {
 Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registrasi.index');
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
 
+Route::get('/login', function () {return view('login');})->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'login_proses']);
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -22,7 +25,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/kategori', [KategoriController::class, 'index']);
     Route::get('/get-kategori', [KategoriController::class, 'ajaxData'])->name('kategori.data');
+
+    Route::get('/juri', [JuriController::class, 'index']);
+    Route::post('/a/juri', [JuriController::class, 'add']);
+    Route::put('/u/juri/{id}', [JuriController::class, 'update']);
+    Route::delete('/d/juri/{id}', [JuriController::class, 'delete'])->name('juri.delete');
 });
 
-// Route::get('/login', [LoginController::class, 'index']);
-Route::post('/login', [LoginController::class, 'login_proses']);
+
+
+

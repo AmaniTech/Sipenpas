@@ -34,10 +34,11 @@
                     </li>
                     </ul>
                 </li>
+                <li class="nav-header">MASTER</li>
                 <li class="nav-item">
-                    <a href="../generate/theme.html" class="nav-link">
-                        <i class="nav-icon bi bi-palette"></i>
-                        <p>Theme Generate</p>
+                    <a href="/juri" class="nav-link">
+                        <i class="bi bi-people"></i>
+                        <p>Juri</p>
                     </a>
                 </li>
             </ul>
