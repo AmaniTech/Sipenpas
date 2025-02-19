@@ -168,6 +168,9 @@
             $('#kategori').select2({
                 theme: 'bootstrap-5'
             });
+            $('#editKategori').select2({
+                theme: 'bootstrap-5'
+            });
 
             $('#dtable').DataTable({
                 processing: true,
