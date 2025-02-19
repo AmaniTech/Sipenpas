@@ -27,8 +27,9 @@ class RegistrasiController extends Controller
                 'no_hp' => 'required',
             ]);
 
-            $bukti_pembayaran = $request->file('bukti_pembayaran');
-            $bukti_pembayaran->store('bukti_pembayaran', 'public');
+            $filebukti = "bayar_{$request->asal_sekolah}_{$request->tim}." . $request->file("bukti_pembayaran")->getClientOriginalExtension();
+            $bukti_pembayaran = $request->file("bukti_pembayaran");
+            $bukti_pembayaran->storeAs('bukti_pembayaran', $filebukti , 'public');
 
             $grup = Grup::create([
                 'asal_sekolah' => $request->asal_sekolah,
@@ -45,17 +46,18 @@ class RegistrasiController extends Controller
 
             foreach ($roles as $index => $role) {
                 $pesertaName = $request->peserta[$index] ?? null;
-                $fotoPath = null;
+                $filename = null;
 
                 if ($request->hasFile("foto_peserta.$index")) {
-                    $fotoPath = $request->file("foto_peserta.$index")->store('peserta_foto', 'public');
+                    $filename = "{$pesertaName}_{$request->asal_sekolah}_{$request->tim}." . $request->file("foto_peserta.$index")->getClientOriginalExtension();
+                    $request->file("foto_peserta.$index")->storeAs('peserta_foto', $filename, 'public');
                 }
 
                 Peserta::create([
                     'grup_id' => $grup->id,
                     'nama' => $pesertaName,
                     'posisi' => $role,
-                    'foto' => $fotoPath,
+                    'foto' => $filename,
                 ]);
             }
 
