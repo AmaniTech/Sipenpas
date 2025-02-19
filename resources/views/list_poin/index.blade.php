@@ -95,20 +95,20 @@
                                                             <div class="mb-3">
                                                                 <label for="nama" class="form-label">Level</label>
                                                                 <select class="form-select" name="level" id="">
-                                                                    <option value="A"
-                                                                        @if ($lp->level == 'A') selected @endif>A
+                                                                    <option value="5"
+                                                                        @if ($lp->level == '5') selected @endif>A
                                                                     </option>
-                                                                    <option value="B"
-                                                                        @if ($lp->level == 'B') selected @endif>B
+                                                                    <option value="4"
+                                                                        @if ($lp->level == '4') selected @endif>B
                                                                     </option>
-                                                                    <option value="C"
-                                                                        @if ($lp->level == 'C') selected @endif>C
+                                                                    <option value="3"
+                                                                        @if ($lp->level == '3') selected @endif>C
                                                                     </option>
-                                                                    <option value="K"
-                                                                        @if ($lp->level == 'K') selected @endif>K
+                                                                    <option value="2"
+                                                                        @if ($lp->level == '2') selected @endif>K
                                                                     </option>
-                                                                    <option value="SK"
-                                                                        @if ($lp->level == 'SK') selected @endif>SK
+                                                                    <option value="1"
+                                                                        @if ($lp->level == '1') selected @endif>SK
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -174,11 +174,11 @@
                             <label for="nama" class="form-label">Level</label>
                             <select class="form-select" name="level" id="">
                                 <option value="">Pilih Level</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="K">K</option>
-                                <option value="SK">SK</option>
+                                <option value="5">A</option>
+                                <option value="4">B</option>
+                                <option value="3">C</option>
+                                <option value="2">K</option>
+                                <option value="1">SK</option>
                             </select>
                         </div>
                         <div class="mb-3">
