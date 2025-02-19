@@ -1,6 +1,6 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
-        <a href="../index.html" class="brand-link">
+        <a href="{{route('home')}}" class="brand-link">
         <img src="/dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow"/>
         <span class="brand-text fw-light">AdminLTE 4</span>
         </a>
@@ -36,9 +36,15 @@
                 </li>
                 <li class="nav-header">MASTER</li>
                 <li class="nav-item">
-                    <a href="/juri" class="nav-link">
+                    <a href="/juri" class="nav-link {{Route::currentRouteName() == 'juri.index' ? 'active' : ''}}">
                         <i class="bi bi-people"></i>
                         <p>Juri</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('kategori.index')}}" class="nav-link {{Route::currentRouteName() == 'kategori.index' ? 'active' : ''}}">
+                        <i class="bi bi-database"></i>
+                        <p>Kategori</p>
                     </a>
                 </li>
             </ul>
