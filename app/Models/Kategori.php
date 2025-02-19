@@ -9,7 +9,7 @@ class Kategori extends Model
     protected $table = 'kategori';
     protected $guarded = ['id'];
 
-    public function subKategori()
+    public function subkategori()
     {
         return $this->hasMany(SubKategori::class);
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JuriController;
+use App\Http\Controllers\SubKategoriController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,6 +28,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
     Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
     Route::delete('/kategori/delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
+
+    Route::get('/subkategori', [SubKategoriController::class, 'index'])->name('subkategori.index');
+    Route::get('/subkategori/data', [SubKategoriController::class, 'ajaxdata'])->name('subkategori.data');
+    Route::post('/subkategori/store', [SubKategoriController::class, 'store'])->name('subkategori.store');
+    Route::put('/subkategori/update/{id}', [SubKategoriController::class, 'update'])->name('subkategori.update');
+    Route::delete('/subkategori/delete/{id}', [SubKategoriController::class, 'delete'])->name('subkategori.delete');
 
     Route::get('/juri', [JuriController::class, 'index'])->name('juri.index');
     Route::post('/a/juri', [JuriController::class, 'add'])->name('juri.add');

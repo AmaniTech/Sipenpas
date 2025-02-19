@@ -47,6 +47,12 @@
                         <p>Kategori</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('subkategori.index')}}" class="nav-link {{Route::currentRouteName() == 'subkategori.index' ? 'active' : ''}}">
+                        <i class="bi bi-database"></i>
+                        <p>Sub Kategori</p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
