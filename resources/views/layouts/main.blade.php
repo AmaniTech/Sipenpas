@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous"/>
         <link rel="stylesheet" href="/dist/css/adminlte.css" />
         <link rel="icon" href="/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+        <link rel="stylesheet" href="{!! asset('tambahan/Dropify/dropify.min.css') !!}" rel="stylesheet">
         @yield('css')
     </head>
   <body class="sidebar-expand-lg bg-body-tertiary">
@@ -53,7 +55,17 @@
     </script>
     <!--end::OverlayScrollbars Configure-->
 
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="{!! asset('tambahan/Dropify/dropify.min.js') !!}"></script>
+    <script>
+      $(document).ready(function() {
+        $('.dropify').dropify();
+      });
+    </script>
+
     @yield('js')
   </body>
 </html>

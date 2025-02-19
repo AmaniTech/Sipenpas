@@ -47,6 +47,13 @@
                         <p>Kategori</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{route('peserta.index')}}" class="nav-link {{Route::currentRouteName() == 'peserta.index' ? 'active' : ''}}">
+                        <i class="bi bi-person-vcard-fill"></i>
+                        <p>Peserta</p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

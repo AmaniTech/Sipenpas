@@ -32,7 +32,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/a/juri', [JuriController::class, 'add'])->name('juri.add');
     Route::put('/u/juri/{id}', [JuriController::class, 'update'])->name('juri.update');
     Route::delete('/d/juri/{id}', [JuriController::class, 'delete'])->name('juri.delete');
+
+    Route::get('/peserta', [RegistrasiController::class, 'showPeserta'])->name('peserta.index');
+    Route::get('/list/peserta/{id}', [RegistrasiController::class, 'showDetailPeserta']);
+    Route::post('/update/peserta/{id}', [RegistrasiController::class, 'updateDetailPeserta']);
 });
+
+
 
 
 
