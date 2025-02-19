@@ -18,6 +18,12 @@ class KategoriController extends Controller
     public function ajaxData()
     {
         $query = Kategori::orderBy('id', 'desc');
-        return DataTables::of($query)->toJson();
+        return DataTables::of($query)
+            ->addColumn('action', function ($item) {
+                return '<a href="#" class="btn btn-sm btn-primary">Edit</a>' . ' ' . '<a href="#" class="btn btn-sm
+                btn-danger">Hapus</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }
