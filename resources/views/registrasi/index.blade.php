@@ -54,7 +54,7 @@
                             </div>
                             <hr>
                             <div class="form-group mb-3">
-                                <label for="peserta">Official</label>
+                                <label for="peserta">Nama Official</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Pelatih</label>
+                                <label for="peserta">Nama Pelatih</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Danton</label>
+                                <label for="peserta">Nama Danton</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -83,7 +83,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 1</label>
+                                <label for="peserta">Nama Anggota 1</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -93,7 +93,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 2</label>
+                                <label for="peserta">Nama Anggota 2</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -103,7 +103,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 3</label>
+                                <label for="peserta">Nama Anggota 3</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -113,7 +113,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 4</label>
+                                <label for="peserta">Nama Anggota 4</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -123,7 +123,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 5</label>
+                                <label for="peserta">Nama Anggota 5</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -133,7 +133,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 6</label>
+                                <label for="peserta">Nama Anggota 6</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -143,7 +143,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 7</label>
+                                <label for="peserta">Nama Anggota 7</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -153,7 +153,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 8</label>
+                                <label for="peserta">Nama Anggota 8</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -163,7 +163,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 9</label>
+                                <label for="peserta">Nama Anggota 9</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -173,7 +173,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 10</label>
+                                <label for="peserta">Nama Anggota 10</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -183,7 +183,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 11</label>
+                                <label for="peserta">Nama Anggota 11</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -193,7 +193,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 12</label>
+                                <label for="peserta">Nama Anggota 12</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -203,7 +203,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 13</label>
+                                <label for="peserta">Nama Anggota 13</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -213,7 +213,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 14</label>
+                                <label for="peserta">Nama Anggota 14</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
@@ -223,7 +223,7 @@
                             </div>
                             <div class="form-group mb-3
                                 ">
-                                <label for="peserta">Anggota 15</label>
+                                <label for="peserta">Nama Anggota 15</label>
                                 <input type="text" name="peserta[]" id="peserta" class="form-control">
                             </div>
                             <div class="form-group mb-3
