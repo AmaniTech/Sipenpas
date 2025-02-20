@@ -9,30 +9,10 @@
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/home" class="nav-link {{Route::currentRouteName() == 'home' ? 'active' : ''}}">
                         <i class="nav-icon bi bi-speedometer"></i>
-                        <p>Dashboard<i class="nav-arrow bi bi-chevron-right"></i></p>
+                        <p>Dashboard</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
-                            <p>Dashboard v1</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index2.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
-                            <p>Dashboard v2</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index3.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
-                            <p>Dashboard v3</p>
-                        </a>
-                    </li>
-                    </ul>
                 </li>
                 <li class="nav-header">MASTER</li>
                 <li class="nav-item">
@@ -47,18 +27,23 @@
                         <p>Kategori</p>
                     </a>
                 </li>
-<<<<<<< HEAD
-
-                <li class="nav-item">
-                    <a href="{{route('peserta.index')}}" class="nav-link {{Route::currentRouteName() == 'peserta.index' ? 'active' : ''}}">
-                        <i class="bi bi-person-vcard-fill"></i>
-                        <p>Peserta</p>
-=======
                 <li class="nav-item">
                     <a href="{{route('subkategori.index')}}" class="nav-link {{Route::currentRouteName() == 'subkategori.index' ? 'active' : ''}}">
                         <i class="bi bi-database"></i>
                         <p>Sub Kategori</p>
->>>>>>> 0a1786f58c31eb15be14f573f8ba20d605dfaee8
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('peserta.index')}}" class="nav-link {{Route::currentRouteName() == 'peserta.index' ? 'active' : ''}}">
+                        <i class="bi bi-person-vcard-fill"></i>
+                        <p>Peserta</p>
+                    </a>
+                </li>
+                <li class="nav-header">PENILAIAN</li>
+                <li class="nav-item">
+                    <a href="" class="nav-link {{Route::currentRouteName() == '' ? 'active' : ''}}">
+                        <i class="bi bi-person-vcard-fill"></i>
+                        <p>Modul</p>
                     </a>
                 </li>
             </ul>

@@ -128,10 +128,10 @@ class RegistrasiController extends Controller
     }
 
     public function cetakbos($grup_id){
-        $peserta = Peserta::where('grup_id', $grup_id)->get();
+        $peserta = Peserta::where('grup_id', $grup_id)->whereNotIn('posisi', ['Danton', 'Official', 'Pelatih'])->get();
         $data_grup = Grup::where('id', $grup_id)->first();
 
-        $danton = Peserta::where('grup_id', $grup_id)->where('posisi', 'Danton')->first();
+        $danton = Peserta::where('grup_id', $grup_id)->whereIn('posisi', ['Danton', 'Official', 'Pelatih'])->get();
 
         return view('peserta.listPeserta.cetak', [
             'peserta' => $peserta,
@@ -145,5 +145,14 @@ class RegistrasiController extends Controller
 
         toast('Hapus Sukses!','success');
         return redirect()->back();
+    }
+
+    public function cetakIDCard($grup_id){
+        $peserta = Peserta::where('grup_id', $grup_id)->get();
+        $data_grup = Grup::where('id', $grup_id)->first();
+        return view('peserta.listPeserta.cetakidCard', [
+            'peserta' => $peserta,
+            'data_grup' => $data_grup
+        ]);
     }
 }

@@ -29,10 +29,10 @@ class SubKategoriController extends Controller
                 onclick="showEditModal(' . $data->id . ', \'' . addslashes($data->nama) . '\', ' . $data->kategori_id . ', ' . $data->urutan . ')">
                 Edit
             </button>  <form action="/subkategori/delete/' . $data->id . '" method="POST" style="display:inline;">
-                                                          ' . csrf_field() . '
-                                                          ' . method_field("DELETE") . '
-                                                        <button type="submit" class="btn btn-danger border border-white" onclick="return confirm(\'Apakah anda yakin ingin menghapus data ini?\')">Delete</button>
-                                                    </form>';
+                                ' . csrf_field() . '
+                                ' . method_field("DELETE") . '
+                            <button type="submit" class="btn btn-danger border border-white" onclick="return confirm(\'Apakah anda yakin ingin menghapus data ini?\')">Delete</button>
+                        </form>';
             })
             ->rawColumns(['action'])
             ->make(true);
