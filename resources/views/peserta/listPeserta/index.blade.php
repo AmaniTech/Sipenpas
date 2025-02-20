@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="">
+                                <a href="/cetak/peserta/{{$data_grup->id}}" target="_blank">
                                     <button type="button" class="btn btn-primary mb-3"><i class="bi bi-printer"></i> Cetak Data</button>
                                 </a>
                                 <table class="table table-bordered" id="table1">
@@ -64,7 +64,7 @@
                                                 </td>
                                                 <td>
                                                     <button href='' class="btn btn-warning border border-white" data-bs-toggle="modal" data-bs-target="#epeserta_{{$g->id}}">Edit</button>
-                                                    <form action="/d/juri/{{$g->id}}" method="POST" style="display:inline;">
+                                                    <form action="/delete/peserta/{{$g->id}}" method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger border border-white">Delete</button>
@@ -79,21 +79,20 @@
                                                             <h1 class="modal-title fs-5" id="epeserta_{{$g->id}}Label">Edit Data</h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                    <div class="modal-body">
+                                                        <div class="modal-body">
                                                         <form action="/update/peserta/{{$g->id}}" method="POST" enctype="multipart/form-data">
                                                             @csrf
-                                                            <input type="hidden" name="sekolah" value="{{$g->grup_id}}">
+                                                            <input type="hidden" name="sekolah{{$g->id}}" value="{{$g->grup_id}}">
                                                             <div class="mb-3">
                                                                 <label for="" class="form-label">Nama Peserta</label>
-                                                                <input type="text" class="form-control" name="name" value="{{$g->nama}}">
+                                                                <input type="text" class="form-control" name="name{{$g->id}}" value="{{$g->nama}}">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="" class="form-label">Posisi</label>
-                                                                <input type="text" class="form-control" name="posisi" value="{{$g->posisi}}">
+                                                                <input type="text" class="form-control" name="posisi{{$g->id}}" value="{{$g->posisi}}">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="" class="form-label">Gambar</label>
-                                                                <input class="dropify" type="file" name="photo" id="file" style="width: 100%"/>
+                                                                <input type="file" class="dropify" name="photo{{$g->id}}"/>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -121,38 +120,41 @@
 <script>
     let table = new DataTable('#table1');
 
-    // function update(){
-    //     let files = $('#file')[0].files;
-    //     var data = new FormData();
-    //     data.append('file', files[0]);
-    //     data.append('file', files[0]);
-    //     $.ajax({
-    //         url: "/testing/upload",
-    //         method: 'POST',
-    //         data: data,
-    //         contentType: false,
-    //         processData: false,
-    //         dataType: 'json',
-    //         success: function(response) {
-    //             Swal.fire({
-    //                 icon: 'success',
-    //                 title: 'Tersimpan!',
-    //                 text: 'Gambar Berhasil di-upload!!'
-    //             }).then((result) => {
-    //                 if (result.isConfirmed) {
-    //                     window.location.reload()
-    //                 }
-    //             });
-    //         },
-    //         error: function(xhr) {
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Oops...',
-    //                 text: xhr,
-    //             })
-    //             return;
-    //         }
-    //     });
-    // }
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    function funcupdate(no) {
+        let files = $(`#file${no}`)[0].files;
+        const name = $(`#name${no}`).val();
+        const posisi = $(`#posisi${no}`).val();
+
+        var data = new FormData();
+        data.append('file', files[0]);
+        data.append('no', no);
+        data.append('name', name);
+        data.append('posisi', posisi);
+
+        $.ajax({
+            url: "/update/peserta",
+            method: 'PUT',
+            data: data,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    
 </script>
 @endsection

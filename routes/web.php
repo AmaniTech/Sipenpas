@@ -35,7 +35,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/peserta', [RegistrasiController::class, 'showPeserta'])->name('peserta.index');
     Route::get('/list/peserta/{id}', [RegistrasiController::class, 'showDetailPeserta']);
-    Route::post('/update/peserta/{id}', [RegistrasiController::class, 'updateDetailPeserta']);
+    Route::post('/update/peserta/{id}', [RegistrasiController::class, 'a']);
+    Route::get('cetak/peserta/{grup_id}', [RegistrasiController::class, 'cetakbos']);
+    Route::delete('delete/peserta/{id}', [RegistrasiController::class, 'delete']);
 });
 
 

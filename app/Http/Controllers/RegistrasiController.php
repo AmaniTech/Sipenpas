@@ -92,38 +92,58 @@ class RegistrasiController extends Controller
         ]);
     }
 
-    public function updateDetailPeserta(Request $request, $id){
+    public function a(Request $request, $id){
         $old_foto = Peserta::where('id', $id)->value('foto');
-        $pesertaName = $request->name;
-        $posisi = $request->posisi;
 
-        $data_grup = Grup::where('id', $request->sekolah)->first();
+        $pesertaName = $request->input("name$id");
+        $posisi = $request->input("posisi$id");
+        $grup_id = $request->input("sekolah$id");
+
+        $data_grup = Grup::where('id', $grup_id)->first();
         $asal_sekolah = $data_grup->asal_sekolah;
         $tim = $data_grup->tim;
 
         
         $filename = "{$pesertaName}_{$asal_sekolah}_{$tim}";
-        if ($request->hasFile('gambar')) {
-            $fileExtension = $request->file('gambar')->getClientOriginalExtension();
+        if ($request->hasFile("photo$id")) {
+            $fileExtension = $request->file("photo$id")->getClientOriginalExtension();
             $filename .= ".{$fileExtension}";
 
             $filePath = 'peserta_foto/' . $old_foto;
             Storage::disk('public')->delete($filePath);
 
-            $request->file('gambar')->storeAs('peserta_foto', $filename, 'public');
+            $request->file("photo$id")->storeAs('peserta_foto', $filename, 'public');
         } else {
-            // Jika tidak ada gambar baru, gunakan gambar lama
             $filename = $old_foto;
         }
 
-        Peserta::where('id', $id)->update([
+        Peserta::where('id', $request->id)->update([
             'nama' => $pesertaName,
             'posisi' => $posisi,
-            'foto' => $filename,
+            'foto' => $filename
         ]);
 
         toast('Data berhasil di update','success');
         return redirect()->back();
-        
+    }
+
+    public function cetakbos($grup_id){
+        $peserta = Peserta::where('grup_id', $grup_id)->get();
+        $data_grup = Grup::where('id', $grup_id)->first();
+
+        $danton = Peserta::where('grup_id', $grup_id)->where('posisi', 'Danton')->first();
+
+        return view('peserta.listPeserta.cetak', [
+            'peserta' => $peserta,
+            'data_grup' => $data_grup,
+            'danton' => $danton
+        ]);
+    }
+
+    public function delete($id){
+        Peserta::where('id', $id)->delete();
+
+        toast('Hapus Sukses!','success');
+        return redirect()->back();
     }
 }
