@@ -146,4 +146,13 @@ class RegistrasiController extends Controller
         toast('Hapus Sukses!','success');
         return redirect()->back();
     }
+
+    public function cetakIDCard($grup_id){
+        $peserta = Peserta::where('grup_id', $grup_id)->get();
+        $data_grup = Grup::where('id', $grup_id)->first();
+        return view('peserta.listPeserta.cetakidCard', [
+            'peserta' => $peserta,
+            'data_grup' => $data_grup
+        ]);
+    }
 }
