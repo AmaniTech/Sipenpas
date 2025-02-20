@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>{{$data_grup->asal_sekolah}} | {{$data_grup->tim}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
-            margin-left: 12px
+            margin-left: 12px;
         }
 
         th,
@@ -56,32 +56,36 @@
         
     </style>
   </head>
-    <body>
+    <body class="">
         <div>
             <table class="table p-5 mx-auto" style="border-bottom: 2px solid black">
                 <thead class="">
                     <tr>
-                        <th class="anu mx-auto text-center " style="width: 70px">
+                        {{-- <th class="anu mx-auto text-center " style="width: 70px">
                             <img src="/logo.png" alt="fti" style="padding: 20px" height="150px">
-                        </th>
-                        <th class="text-center">
+                        </th> --}}
+                        {{-- <th class="text-center">
                             <h2 class="fw-bold">PENGURUS POKJA MEKARPUTIH</h2>
                             <h4 class="fw-bold">PASKIBRAKA KABUPATEN GARUT</h4>
                             <p>Sekretariat: Jl. Cijayana No. 01 Mekarmukni Garut 44165</p>
                             <p>Website: www.fti.unmerpas.ac.idEmail: fti@unmerpas.ac.id</p>
+                        </th> --}}
+                        <th class="text-center">
+                            <h2 class="fw-bold">FORMULIR PENDAFTARAN</h2>
                         </th>
                     </tr>
                 </thead>
             </table>
         </div>
+    <div class="container">
         <div>
             <table class="table p-5 mx-auto" style="border-bottom: 2px solid white">
                 <thead>
                     <tr>
-                        <th class="text-center">
+                        {{-- <th class="text-center">
                             <h6 class="fw-bold">Formulir Pendaftaran</h6>
                             <h6 class="fw-bold">PESERTA LKBB BERAKSI MKM</h6>
-                        </th>
+                        </th> --}}
                     </tr>
                 </thead>
             </table>
@@ -91,48 +95,48 @@
                 <div class="col">
                     <table>
                         <tr>
-                            <th>No / Nama Pasukan</th>
-                            <td>011 / MACAN PUTIH</td>
+                            <th>ASAL SEKOLAH</th>
+                            <th>:</th>
+                            <td>{{$data_grup->asal_sekolah}}</td>
                         </tr>
                         <tr>
-                            <th>ASAL SATUAN</th>
-                            <td>SMK MEKARMUKTI</td>
-                        </tr>
-                        <tr>
-                            <th>PEMBINA/PELATIH</th>
-                            <td>WAHYU HERMANSYAH</td>
+                            <th>TIM</th>
+                            <th>:</th>
+                            <td>{{$data_grup->tim}}</td>
                         </tr>
                         <tr>
                             <th>NO. HP</th>
-                            <td>081210488129</td>
+                            <th>:</th>
+                            <td>{{$data_grup->no_hp}}</td>
                         </tr>
                     </table>
                 </div>
-                <div class="col item text-center">
-                    <div class="row">
-                        <img class="img" src="/storage/peserta_foto/{{$danton->foto}}" width="50px" height="180px">
-                    </div>
-                    <div class="row">
-                        <span>{{$danton->nama}}</span>
-                    </div>
-                    <div class="row">
-                        <span>Komandan Danton</span>
-                    </div>
-                </div>
             </div>
         </div>
+        <br>
 
-        <div class="row photos" border="1">
-            @foreach ($peserta as $p)
-                <div class="col-2 item text-center">
-                    <div class="row">
-                        <img class="img" src="/storage/peserta_foto/{{$p->foto}}" width="50px" height="180px">
+        <div class="row">
+            @foreach ($danton as $p)
+                <div class="col" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img class="img" src="/storage/peserta_foto/{{$p->foto}}" style="width: 3cm; height: 4cm;">
                     </div>
-                    <div class="row">
+                    <div style="margin-top: 10px;">
                         <span>{{$p->nama}}</span>
                     </div>
-                    <div class="row">
-                        <span>{{$p->posisi}}</span>
+                </div>
+
+            @endforeach
+        </div>
+        <br>
+        <div class="row photos" border="1">
+            @foreach ($peserta as $p)
+                <div class="col-2 item">
+                    <div class="row text-center">
+                        <img class="img" src="/storage/peserta_foto/{{$p->foto}}" style="width: 3cm; height: 4cm;">
+                    </div>
+                    <div class="row text-center">
+                        <span>{{$p->nama}}</span>
                     </div>
                 </div>
             @endforeach
@@ -163,14 +167,11 @@
                                 </tr>
                             </table>
                         </th>
-                        <th class="text-center">
+                        <th class="float-end">
                             <table>
                                 <tr>
                                     <div class="row">
-                                        <div class="row">
-                                            <span>Mengetahui,</span>
-                                            <span>Kepala Sekolah</span>
-                                        </div>
+                                        <span style="font-size: 15px">PENANGGUNG JAWAB</span>
                                     </div>
                                 </tr>
                                 <tr>
@@ -193,7 +194,15 @@
                                     <div class="row">
                                         <div class="row">
                                             <span></span>
-                                            <span>(.............................)</span>
+                                            <span style="color: white">wad</span>
+                                        </div>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="row">
+                                        <div class="row">
+                                            <span></span>
+                                            <span>(........................................)</span>
                                         </div>
                                     </div>
                                 </tr>
@@ -207,5 +216,6 @@
         <br><br>
         <br><br>
         <br><br>
+    </div>
     </body>
 </html>
