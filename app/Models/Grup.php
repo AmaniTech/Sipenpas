@@ -13,4 +13,9 @@ class Grup extends Model
     {
         return $this->hasMany(Peserta::class);
     }
+
+    public function penilaian()
+    {
+        return $this->hasMany(Penilaian::class);
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JuriController;
 use App\Http\Controllers\ListPoinController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubKategoriController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,5 +59,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('cetak/peserta/{grup_id}', [RegistrasiController::class, 'cetakbos']);
     Route::delete('delete/peserta/{id}', [RegistrasiController::class, 'delete']);
     Route::get('cetak/idvard/{grup_id}', [RegistrasiController::class, 'cetakIDCard']);
+
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting');
+    Route::put('/setting/update/{id}', [SettingController::class, 'update'])->name('setting.update');
 });
 
