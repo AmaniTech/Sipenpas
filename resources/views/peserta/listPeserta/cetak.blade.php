@@ -131,14 +131,6 @@
         <br>
         <div class="row photos" border="1">
             @foreach ($peserta as $p)
-                {{-- <div class="col-2 item">
-                    <div class="row text-center">
-                        <img class="img" src="/storage/peserta_foto/{{$p->foto}}" style="width: 3cm; height: 4cm;">
-                    </div>
-                    <div class="row text-center">
-                        <span>{{$p->nama}}</span>
-                    </div>
-                </div> --}}
                 <div class="col-2 item">
                     <div class="row justify-content-center text-center">
                         <img class="img" src="/storage/peserta_foto/{{$p->foto}}" style="width: 3cm; height: 4cm;">
