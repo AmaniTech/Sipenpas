@@ -70,18 +70,23 @@
                                             <label for="" class="form-label">
                                                 Deskripsi
                                             </label>
-                                           <textarea name="deskripsi" id="" rows="3" class="form-control">{{ $data->deskripsi }}</textarea>
+                                            <textarea name="deskripsi" id="" rows="3" class="form-control">{{ $data->deskripsi }}</textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="" class="form-label">
                                                 Logo
                                             </label>
+                                            <br>
 
-                                            <img src="{{ asset('storage/' . $data->logo) }}" class="img-fluid rounded" alt="" width="100px">
+                                            <a href="{{ asset('storage/logo/' . $data->logo) }}" target="_blank">
+                                                <img src="{{ asset('storage/logo/' . $data->logo) }}"
+                                                    class="img-thumbnail mb-3 " alt="" width="100px">
+                                            </a>
 
                                             <input type="file" class="form-control" name="logo">
                                         </div>
-                                        <button type="submit" class="btn btn-primary d-flex ms-auto">Simpan Perubahan</button>
+                                        <button type="submit" class="btn btn-primary d-flex ms-auto">Simpan
+                                            Perubahan</button>
                                     </form>
                                 </div>
 

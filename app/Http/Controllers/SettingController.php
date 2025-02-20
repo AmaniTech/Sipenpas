@@ -22,10 +22,17 @@ class SettingController extends Controller
                 $file = $request->file('logo');
                 $filename = 'logo.' . $file->getClientOriginalExtension();
                 $file->storeAs('logo', $filename, 'public');
-                $request->merge(['logo' => $filename]);
             }
 
-            $data->update($request->all());
+            $data->update(
+                [
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'email' => $request->email,
+                    'no_hp' => $request->no_hp,
+                    'logo' => $filename ?? $data->logo,
+                ]
+            );
             toast('Update Sukses!', 'success');
             return redirect()->route('setting');
         } catch (\Exception $e) {
