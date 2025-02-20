@@ -51,4 +51,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/a/juri', [JuriController::class, 'add'])->name('juri.add');
     Route::put('/u/juri/{id}', [JuriController::class, 'update'])->name('juri.update');
     Route::delete('/d/juri/{id}', [JuriController::class, 'delete'])->name('juri.delete');
+
+    Route::get('/peserta', [RegistrasiController::class, 'showPeserta'])->name('peserta.index');
+    Route::get('/list/peserta/{id}', [RegistrasiController::class, 'showDetailPeserta']);
+    Route::post('/update/peserta/{id}', [RegistrasiController::class, 'a']);
+    Route::get('cetak/peserta/{grup_id}', [RegistrasiController::class, 'cetakbos']);
+    Route::delete('delete/peserta/{id}', [RegistrasiController::class, 'delete']);
 });
+<<<<<<< HEAD
+
+
+
+
+
+
+=======
+>>>>>>> 0a1786f58c31eb15be14f573f8ba20d605dfaee8

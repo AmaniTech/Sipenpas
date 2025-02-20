@@ -47,10 +47,18 @@
                         <p>Kategori</p>
                     </a>
                 </li>
+<<<<<<< HEAD
+
+                <li class="nav-item">
+                    <a href="{{route('peserta.index')}}" class="nav-link {{Route::currentRouteName() == 'peserta.index' ? 'active' : ''}}">
+                        <i class="bi bi-person-vcard-fill"></i>
+                        <p>Peserta</p>
+=======
                 <li class="nav-item">
                     <a href="{{route('subkategori.index')}}" class="nav-link {{Route::currentRouteName() == 'subkategori.index' ? 'active' : ''}}">
                         <i class="bi bi-database"></i>
                         <p>Sub Kategori</p>
+>>>>>>> 0a1786f58c31eb15be14f573f8ba20d605dfaee8
                     </a>
                 </li>
             </ul>
