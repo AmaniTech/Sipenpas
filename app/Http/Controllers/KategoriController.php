@@ -64,6 +64,14 @@ class KategoriController extends Controller
             return redirect()->route('kategori.index');
         }
     }
+
+    public function print($id){
+        $data = Kategori::with(['subkategori', 'subkategori.listpoin'])->find($id);
+
+
+    // Kirim data ke view
+    return view('master.kategori.form_juri.index', compact('data'));
+    }
 }
 
     // public function ajaxData()
