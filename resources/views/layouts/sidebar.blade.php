@@ -1,49 +1,61 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
-        <a href="{{route('home')}}" class="brand-link">
-        <img src="/dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow"/>
-        <span class="brand-text fw-light">AdminLTE 4</span>
+        <a href="{{ route('home') }}" class="brand-link">
+            <img src="/dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
+            <span class="brand-text fw-light">AdminLTE 4</span>
         </a>
     </div>
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="/home" class="nav-link {{Route::currentRouteName() == 'home' ? 'active' : ''}}">
+                    <a href="/home" class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-header">MASTER</li>
                 <li class="nav-item">
-                    <a href="/juri" class="nav-link {{Route::currentRouteName() == 'juri.index' ? 'active' : ''}}">
+                    <a href="/juri" class="nav-link {{ Route::currentRouteName() == 'juri.index' ? 'active' : '' }}">
                         <i class="bi bi-people"></i>
                         <p>Juri</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('kategori.index')}}" class="nav-link {{Route::currentRouteName() == 'kategori.index' ? 'active' : ''}}">
+                    <a href="{{ route('kategori.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'kategori.index' ? 'active' : '' }}">
                         <i class="bi bi-database"></i>
                         <p>Kategori</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('subkategori.index')}}" class="nav-link {{Route::currentRouteName() == 'subkategori.index' ? 'active' : ''}}">
+                    <a href="{{ route('subkategori.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'subkategori.index' ? 'active' : '' }}">
                         <i class="bi bi-database"></i>
                         <p>Sub Kategori</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('peserta.index')}}" class="nav-link {{Route::currentRouteName() == 'peserta.index' ? 'active' : ''}}">
+                    <a href="{{ route('peserta.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'peserta.index' ? 'active' : '' }}">
                         <i class="bi bi-person-vcard-fill"></i>
                         <p>Peserta</p>
                     </a>
                 </li>
                 <li class="nav-header">PENILAIAN</li>
                 <li class="nav-item">
-                    <a href="" class="nav-link {{Route::currentRouteName() == '' ? 'active' : ''}}">
+                    <a href="" class="nav-link {{ Route::currentRouteName() == '' ? 'active' : '' }}">
                         <i class="bi bi-person-vcard-fill"></i>
                         <p>Modul</p>
+                    </a>
+                </li>
+                <li class="nav-header">SETTING</li>
+                <li class="nav-item">
+                    <a href="{{ route('setting') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'setting' ? 'active' : '' }}">
+                        <i class="bi bi-gear
+                        "></i>
+                        <p>Setting</p>
                     </a>
                 </li>
             </ul>
