@@ -26,7 +26,7 @@ class SubKategoriController extends Controller
                 return '
                 <a href="/listpoin/' . $data->id . '" class="btn btn-primary border border-white">Set Poin</a>
                 <button type="button" class="btn btn-warning border border-white"
-                onclick="showEditModal(' . $data->id . ', \'' . addslashes($data->nama) . '\', ' . $data->kategori_id . ')">
+                onclick="showEditModal(' . $data->id . ', \'' . addslashes($data->nama) . '\', ' . $data->kategori_id . ', ' . $data->urutan . ')">
                 Edit
             </button>  <form action="/subkategori/delete/' . $data->id . '" method="POST" style="display:inline;">
                                                           ' . csrf_field() . '
@@ -44,11 +44,13 @@ class SubKategoriController extends Controller
             $request->validate([
                 'kategori_id' => 'required',
                 'nama' => 'required',
+                'urutan' => 'required',
             ]);
 
             SubKategori::create([
                 'kategori_id' => $request->kategori_id,
                 'nama' => $request->nama,
+                'urutan' => $request->urutan,
             ]);
 
             toast('Tambah Sukses!', 'success');
@@ -65,11 +67,13 @@ class SubKategoriController extends Controller
             $request->validate([
                 'kategori_id' => 'required',
                 'nama' => 'required',
+                'urutan' => 'required',
             ]);
 
             SubKategori::find($id)->update([
                 'kategori_id' => $request->kategori_id,
                 'nama' => $request->nama,
+                'urutan' => $request->urutan,
             ]);
 
             toast('Update Sukses!', 'success');

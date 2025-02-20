@@ -58,6 +58,7 @@
                                         <th scope="col">No</th>
                                         <th scope="col">Nama Kategori</th>
                                         <th scope="col">Nama Sub Kategori</th>
+                                        <th scope="col">Urutan</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -97,6 +98,10 @@
                             <label for="editNama" class="form-label">Nama Subkategori</label>
                             <input type="text" class="form-control" id="editNama" name="nama" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="editUrutan" class="form-label">Urutan</label>
+                            <input type="number" class="form-control" id="editUrutan" name="urutan" required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -129,8 +134,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama</label>
+                            <label for="nama" class="form-label">Nama Subkategori</label>
                             <input type="text" class="form-control" id="nama" name="nama">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="urutan" class="form-label">Urutan</label>
+                            <input type="number" class="form-control" id="urutan" name="urutan">
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -193,6 +203,10 @@
                         name: 'nama'
                     },
                     {
+                        data: 'urutan',
+                        name: 'urutan'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
@@ -202,7 +216,7 @@
             });
         });
 
-        function showEditModal(id, nama, kategoriId) {
+        function showEditModal(id, nama, kategoriId, urutan) {
             var modalElement = document.getElementById('editSubkategoriModal');
 
             if (!modalElement) {
@@ -213,6 +227,7 @@
             // Isi form dengan data yang diklik
             document.getElementById('editId').value = id;
             document.getElementById('editNama').value = nama;
+            document.getElementById('editUrutan').value = urutan;
 
             // Set action form agar sesuai dengan ID yang diedit
             document.getElementById('editSubkategoriForm').action = "/subkategori/update/" + id;

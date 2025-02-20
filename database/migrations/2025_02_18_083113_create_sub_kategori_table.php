@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_id');
             $table->foreign('kategori_id')->references('id')->on('kategori');
             $table->string('nama');
+            $table->integer('urutan');
             $table->timestamps();
             $table->softDeletes();
         });

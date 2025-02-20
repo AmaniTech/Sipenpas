@@ -47,7 +47,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $sk->nama }}</td>
-                        @foreach ($sk->listpoin as $lp)
+                        @foreach ($sk->listpoin->sortBy('urutan') as $lp)
                             <td class="text-center">
                                 <table>
                                     <tr>
