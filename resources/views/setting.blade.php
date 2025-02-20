@@ -23,7 +23,7 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-5">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Setting</h3>
@@ -41,7 +41,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="{{ route('setting.update', $data->id) }}" method="POST">
+                                    <form action="{{ route('setting.update', $data->id) }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="mb-3">
@@ -69,16 +70,18 @@
                                             <label for="" class="form-label">
                                                 Deskripsi
                                             </label>
-                                            <input type="text" class="form-control" name="deskripsi"
-                                                value="{{ $data->deskripsi }}">
+                                           <textarea name="deskripsi" id="" rows="3" class="form-control">{{ $data->deskripsi }}</textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="" class="form-label">
                                                 Logo
                                             </label>
+
+                                            <img src="{{ asset('storage/' . $data->logo) }}" class="img-fluid rounded" alt="" width="100px">
+
                                             <input type="file" class="form-control" name="logo">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                        <button type="submit" class="btn btn-primary d-flex ms-auto">Simpan Perubahan</button>
                                     </form>
                                 </div>
 
