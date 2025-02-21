@@ -77,7 +77,7 @@
                 </thead>
             </table>
         </div>
-    <div class="container">
+    <div class="">
         <div>
             <table class="table p-5 mx-auto" style="border-bottom: 2px solid white">
                 <thead>
@@ -132,13 +132,14 @@
         <div class="row photos" border="1">
             @foreach ($peserta as $p)
                 <div class="col-2 item">
-                    <div class="row text-center">
+                    <div class="row justify-content-center text-center">
                         <img class="img" src="/storage/peserta_foto/{{$p->foto}}" style="width: 3cm; height: 4cm;">
                     </div>
-                    <div class="row text-center">
+                    <div class="row justify-content-center text-center">
                         <span>{{$p->nama}}</span>
                     </div>
                 </div>
+
             @endforeach
         </div>
         <br><br>
