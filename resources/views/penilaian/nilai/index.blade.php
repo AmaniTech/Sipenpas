@@ -80,21 +80,21 @@
                                             <td width="50%">Jumlah Peserta</td>
                                             <td width="10%" align="right">:</td>
                                             <td width="40%" style="border: 0px none;">
-                                                <input type="text" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_peserta->count()}}" readonly>
+                                                <input type="text" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_sekolah->peserta->count()}}" readonly>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td width="50%">Nama Pelatih</td>
                                             <td width="10%" align="right">:</td>
                                             <td width="40%" style="border: 0px none;">
-                                                <input type="text" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_peserta->where('posisi', 'Pelatih')->first()->nama}}" readonly>
+                                                <input type="text" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_sekolah->peserta->where('posisi', 'Pelatih')->first()->nama}}" readonly>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td width="50%">Danton</td>
                                             <td width="10%" align="right">:</td>
                                             <td width="40%" style="border: 0px none;">
-                                                <input type="text" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_peserta->where('posisi', 'Danton')->first()->nama}}" readonly>
+                                                <input type="text" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_sekolah->peserta->where('posisi', 'Danton')->first()->nama}}" readonly>
                                             </td>
                                         </tr>
                                     </table>
@@ -130,7 +130,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-wrap">
-                                @foreach ($h as $i)
+                                @foreach ($kategori as $i)
                                     <div class="col-md-4">
                                         <input type="hidden" name="kategori[]" value="{{$i->id}}">
                                         <table class="table table-bordered">
@@ -141,10 +141,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php
-                                                    $d = DB::select("SELECT * FROM sub_kategori a WHERE a.kategori_id = $i->id ORDER BY urutan ASC")
-                                                @endphp
-                                                @foreach ($d as $sk)
+                                                @foreach ($i->subkategori as $sk)
                                                     <tr>
                                                         <input type="hidden" name="i[]" value="{{$i->id}}">
                                                         <input type="hidden" name="u[]" value="{{$sk->id}}">
@@ -165,7 +162,7 @@
                  </form>
             </div>
         </div>
-       
+
 @endsection
 
 
