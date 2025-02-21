@@ -8,6 +8,7 @@ use App\Http\Controllers\ListPoinController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubKategoriController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,7 +27,7 @@ Route::post('/login', [LoginController::class, 'login_proses']);
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [LoginController::class, 'home'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/out', [LoginController::class, 'logout']);
 
     Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');

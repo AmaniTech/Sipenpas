@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function home(Request $req){
-        return view('home');
-    }
-
     public function index(Request $req){
         return view('login');
     }
