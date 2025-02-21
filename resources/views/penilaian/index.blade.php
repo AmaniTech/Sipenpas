@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="app-content">
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -49,9 +49,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            {{-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
-                                data-bs-target="#addSubKategori">Tambah Data</button> --}}
-
                             <table class="table table-hover" id='dtable'>
                                 <thead>
                                     <tr>
@@ -96,6 +93,10 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+
     <script>
         $(document).ready(function() {
             var ajaxdata = '{{ route('penilaian.data') }}';
@@ -138,6 +139,12 @@
                     }
                 ]
             });
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
     </script>
