@@ -69,6 +69,8 @@ class KategoriController extends Controller
     {
         $data = Kategori::with(['subkategori', 'subkategori.listpoin'])->find($id);
 
+        // return $data;
+
         if($data->subkategori->isEmpty()) {
             toast('Data Sub Kategori Kosong !', 'error');
             return redirect()->route('kategori.index');
