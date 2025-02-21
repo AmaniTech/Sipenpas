@@ -23,42 +23,44 @@ class PenilaianController extends Controller
         $query = Grup::all();
 
         $jumlahNilai = SubKategori::count();
-        $progressPenilaian = Penilaian::where('grup_id', 1)->count();
 
-        if ($jumlahNilai || $progressPenilaian == 0) {
-            $progress = 0;
-            $areavalue = 100;
-        } else {
-            $progress = ($progressPenilaian / $jumlahNilai) * 100;
-            $areavalue = $progress;
-        }
-
-        $bgprogress = 'bg-danger';
-
-        if($progress >= 25) {
-            $bgprogress = 'bg-warning';
-        }
-
-        if($progress >= 50) {
-            $bgprogress = 'bg-info';
-        }
-
-        if($progress >= 75) {
-            $bgprogress = 'bg-primary';
-        }
-
-        if($progress >= 100) {
-            $bgprogress = 'bg-success';
-        }
 
         return datatables()->of($query)
             ->addColumn('action', function ($item) {
                 return '
                     <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
                 ';
-               
             })
-            ->addColumn('progress', function ($item) use ($progress, $bgprogress, $areavalue) {
+            ->addColumn('progress', function ($item) use ($jumlahNilai) {
+
+                $progressPenilaian = Penilaian::where('grup_id', $item->id)->count();
+                if ($jumlahNilai == 0 || $progressPenilaian == 0) {
+                    $progress = 0;
+                    $areavalue = 100;
+                } else {
+                    $progress = ($progressPenilaian / $jumlahNilai) * 100;
+                    $areavalue = $progress;
+                }
+
+
+                $bgprogress = 'bg-danger';
+
+                if ($progress >= 25) {
+                    $bgprogress = 'bg-warning';
+                }
+
+                if ($progress >= 50) {
+                    $bgprogress = 'bg-info';
+                }
+
+                if ($progress >= 75) {
+                    $bgprogress = 'bg-primary';
+                }
+
+                if ($progress >= 100) {
+                    $bgprogress = 'bg-success';
+                }
+
                 return '
                    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar ' . $bgprogress . '" style="width: ' . $areavalue . '%">' . $progress . '% </div>
@@ -70,11 +72,12 @@ class PenilaianController extends Controller
             ->make(true);
     }
 
-    public function a($id){
+    public function a($id)
+    {
         $cek = Penilaian::where('grup_id', $id)->count();
 
-        
-        if($cek > 0){
+
+        if ($cek > 0) {
             Alert::error('Gagal', 'Penilaian Sudah Dilakukan');
             return back();
         }
@@ -82,7 +85,7 @@ class PenilaianController extends Controller
         $data_sekolah = Grup::where('id', $id)->first();
         $data_peserta = Peserta::where('grup_id', $id)->get();
 
-        
+
 
         $h = DB::select("SELECT * FROM kategori a ORDER BY id ASC");
 
@@ -95,7 +98,8 @@ class PenilaianController extends Controller
         ]);
     }
 
-    public function main(Request $req){
+    public function main(Request $req)
+    {
         $urutanKategori = $req->kategori;
         $juri = $req->juri;
         $grup_id = $req->grup_id;
@@ -105,7 +109,7 @@ class PenilaianController extends Controller
 
         try {
             DB::beginTransaction();
-            
+
             foreach ($u as $key => $value) {
                 Penilaian::create([
                     'juri_id' => $juri,
@@ -129,7 +133,5 @@ class PenilaianController extends Controller
                 'message' => 'Terjadi Kesalahan!'
             ]);
         }
-        
-
     }
 }
