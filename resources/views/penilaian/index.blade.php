@@ -1,13 +1,6 @@
 @extends('layouts.main')
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-    <!-- Or for RTL support -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 @endsection
 
 @section('title')
@@ -52,7 +45,7 @@
                             {{-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
                                 data-bs-target="#addSubKategori">Tambah Data</button> --}}
 
-                            <table class="table table-hover" id='dtable'>
+                            <table class="table table-hover table-bordered" id='dtable'>
                                 <thead>
                                     <tr>
                                         <th scope="col" width="5%">No</th>
@@ -94,19 +87,9 @@
         src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-html5-3.2.2/b-print-3.2.2/fh-4.0.1/r-3.0.4/sl-3.0.0/datatables.min.js"
         integrity="sha384-XngczsT9HJ0r6iE4yziDtn/ZW+T4/5mFe3FdITztw+8oJ9nBKTGvEPfjOL7n6rXZ" crossorigin="anonymous">
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             var ajaxdata = '{{ route('penilaian.data') }}';
-            $('#kategori').select2({
-                theme: 'bootstrap-5',
-                dropdownParent: $("#addSubKategori")
-            });
-            $('#editKategori').select2({
-                theme: 'bootstrap-5',
-                dropdownParent: $("#editSubkategoriModal")
-            });
 
             $('#dtable').DataTable({
                 processing: true,
