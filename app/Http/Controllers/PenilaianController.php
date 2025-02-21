@@ -7,6 +7,7 @@ use App\Models\Penilaian;
 use App\Models\Peserta;
 use App\Models\SubKategori;
 use App\Models\Juri;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -82,18 +83,16 @@ class PenilaianController extends Controller
             return back();
         }
 
-        $data_sekolah = Grup::where('id', $id)->first();
-        $data_peserta = Peserta::where('grup_id', $id)->get();
+        $data_sekolah = Grup::where('id', $id)->with('peserta')->first();
 
-
-
-        $h = DB::select("SELECT * FROM kategori a ORDER BY id ASC");
+        $kategori = Kategori::with('subkategori')->get();
 
         $juri = Juri::all();
+
         return view('penilaian.nilai.index', [
             'data_sekolah' => $data_sekolah,
-            'data_peserta' => $data_peserta,
-            'h' => $h,
+            // 'data_peserta' => $data_peserta,
+            'kategori' => $kategori,
             'juri' => $juri
         ]);
     }
