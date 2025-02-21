@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="app-content">
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -121,6 +121,12 @@
                     }
                 ]
             });
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
     </script>

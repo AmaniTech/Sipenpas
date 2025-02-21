@@ -8,8 +8,8 @@
                 <i class="bi bi-list"></i>
               </a>
             </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
+            {{-- <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li> --}}
           </ul>
           {{-- <!--end::Start Navbar Links--> --}}
           {{-- <!--begin::End Navbar Links--> --}}
@@ -25,7 +25,7 @@
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img
-                  src="../../../dist/assets/img/user2-160x160.jpg"
+                  src="/storage/logo/{{DB::table('setting')->where('id', 1)->value('logo')}}"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
@@ -35,7 +35,7 @@
                 {{-- <!--begin::User Image--> --}}
                 <li class="user-header text-bg-primary">
                   <img
-                    src="../../../dist/assets/img/user2-160x160.jpg"
+                    src="/storage/logo/{{DB::table('setting')->where('id', 1)->value('logo')}}"
                     class="rounded-circle shadow"
                     alt="User Image"
                   />

@@ -6,7 +6,10 @@ use App\Models\Grup;
 use App\Models\Penilaian;
 use App\Models\Peserta;
 use App\Models\SubKategori;
+use App\Models\Juri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PenilaianController extends Controller
 {
@@ -51,8 +54,9 @@ class PenilaianController extends Controller
         return datatables()->of($query)
             ->addColumn('action', function ($item) {
                 return '
-                    <a href="' . route('penilaian.grup', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
+                    <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
                 ';
+               
             })
             ->addColumn('progress', function ($item) use ($progress, $bgprogress, $areavalue) {
                 return '
@@ -64,5 +68,68 @@ class PenilaianController extends Controller
             ->addIndexColumn()
             ->rawColumns(['action', 'progress'])
             ->make(true);
+    }
+
+    public function a($id){
+        $cek = Penilaian::where('grup_id', $id)->count();
+
+        
+        if($cek > 0){
+            Alert::error('Gagal', 'Penilaian Sudah Dilakukan');
+            return back();
+        }
+
+        $data_sekolah = Grup::where('id', $id)->first();
+        $data_peserta = Peserta::where('grup_id', $id)->get();
+
+        
+
+        $h = DB::select("SELECT * FROM kategori a ORDER BY id ASC");
+
+        $juri = Juri::all();
+        return view('penilaian.nilai.index', [
+            'data_sekolah' => $data_sekolah,
+            'data_peserta' => $data_peserta,
+            'h' => $h,
+            'juri' => $juri
+        ]);
+    }
+
+    public function main(Request $req){
+        $urutanKategori = $req->kategori;
+        $juri = $req->juri;
+        $grup_id = $req->grup_id;
+        $i = $req->i;
+        $u = $req->u;
+        // return response()->json($req->all());
+
+        try {
+            DB::beginTransaction();
+            
+            foreach ($u as $key => $value) {
+                Penilaian::create([
+                    'juri_id' => $juri,
+                    'grup_id' => $grup_id,
+                    'sub_kategori_id' => $value,
+                    'poin' => $req->nilai[$i[$key]][$value],
+                ]);
+            }
+
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Sukses!'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            return response()->json([
+                'status' => 99,
+                'message' => 'Terjadi Kesalahan!'
+            ]);
+        }
+        
+
     }
 }
