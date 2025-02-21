@@ -58,6 +58,7 @@
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger border border-white" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
                                                     </form>
+                                                    <a href="{{route('listpoin.print', $k->id)}}" class="btn btn-info">Print</a>
 
                                                 </td>
                                             </tr>

@@ -44,9 +44,9 @@
                 </li>
                 <li class="nav-header">PENILAIAN</li>
                 <li class="nav-item">
-                    <a href="" class="nav-link {{ Route::currentRouteName() == '' ? 'active' : '' }}">
+                    <a href="{{ route('penilaian.index') }}" class="nav-link {{ Route::currentRouteName() == 'penilaian.index' ? 'active' : '' }}">
                         <i class="bi bi-person-vcard-fill"></i>
-                        <p>Modul</p>
+                        <p>Penilaian</p>
                     </a>
                 </li>
                 <li class="nav-header">SETTING</li>
