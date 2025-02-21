@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ID Card with Background</title>
+    <title>Card {{$data_grup->asal_sekolah}}-{{$data_grup->tim}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .id-card {
@@ -19,7 +19,6 @@
             background-size: cover;
             background-position: center;
             color: white; 
-            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .id-card img {
@@ -42,131 +41,46 @@
                 page-break-inside: avoid;
             }
         }
+
+        .id-card h5 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #fff; /* Warna teks putih */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow teks */
+        }
+
+        /* Gaya untuk teks informasi */
+        .id-card p {
+            font-size: 13px;
+            margin: 1px 0;
+            color: #fff; /* Warna teks putih */
+        }
+
+        /* Gaya untuk teks khusus (seperti tahun) */
+        .id-card .special-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <!-- ID Card 1 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>John Doe</h5>
-                <p>ID: 123456</p>
-                <p>Departemen: IT</p>
-                <p>Jabatan: Developer</p>
-            </div>
-            <!-- ID Card 2 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Jane Smith</h5>
-                <p>ID: 654321</p>
-                <p>Departemen: HR</p>
-                <p>Jabatan: Manager</p>
-            </div>
-            <!-- ID Card 3 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Alice Johnson</h5>
-                <p>ID: 789012</p>
-                <p>Departemen: Finance</p>
-                <p>Jabatan: Accountant</p>
-            </div>
-            <!-- ID Card 4 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Bob Brown</h5>
-                <p>ID: 345678</p>
-                <p>Departemen: Marketing</p>
-                <p>Jabatan: Analyst</p>
-            </div>
-            <!-- ID Card 5 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Charlie Davis</h5>
-                <p>ID: 901234</p>
-                <p>Departemen: Sales</p>
-                <p>Jabatan: Executive</p>
-            </div>
-            <!-- ID Card 6 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Eva Green</h5>
-                <p>ID: 567890</p>
-                <p>Departemen: Support</p>
-                <p>Jabatan: Specialist</p>
-            </div>
-            <!-- ID Card 7 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Frank White</h5>
-                <p>ID: 234567</p>
-                <p>Departemen: Operations</p>
-                <p>Jabatan: Coordinator</p>
-            </div>
-            <!-- ID Card 8 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Grace Lee</h5>
-                <p>ID: 890123</p>
-                <p>Departemen: R&D</p>
-                <p>Jabatan: Engineer</p>
-            </div>
-            <!-- ID Card 9 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Henry Clark</h5>
-                <p>ID: 456789</p>
-                <p>Departemen: Legal</p>
-                <p>Jabatan: Advisor</p>
-            </div>
-            <!-- ID Card 10 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Ivy Adams</h5>
-                <p>ID: 012345</p>
-                <p>Departemen: Admin</p>
-                <p>Jabatan: Assistant</p>
-            </div>
-            <!-- ID Card 11 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Jack Wilson</h5>
-                <p>ID: 678901</p>
-                <p>Departemen: IT</p>
-                <p>Jabatan: Technician</p>
-            </div>
-            <!-- ID Card 12 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Karen Hall</h5>
-                <p>ID: 345012</p>
-                <p>Departemen: HR</p>
-                <p>Jabatan: Recruiter</p>
-            </div>
-            <!-- ID Card 13 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Leo Scott</h5>
-                <p>ID: 901567</p>
-                <p>Departemen: Finance</p>
-                <p>Jabatan: Auditor</p>
-            </div>
-            <!-- ID Card 14 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Mia King</h5>
-                <p>ID: 234890</p>
-                <p>Departemen: Marketing</p>
-                <p>Jabatan: Designer</p>
-            </div>
-            <!-- ID Card 15 -->
-            <div class="col-2 id-card">
-                <img src="https://hypesneakerid.com/wp-content/uploads/2024/07/Screenshot-2024-07-30-192423-600x600.png" alt="Foto Profil">
-                <h5>Noah Wright</h5>
-                <p>ID: 678234</p>
-                <p>Departemen: Sales</p>
-                <p>Jabatan: Representative</p>
-            </div>
+            @foreach ($peserta as $p)
+                <div class="col-2 id-card">
+                    <img src="/storage/peserta_foto/{{$p->foto}}" alt="Foto Profil">
+                    <h5>{{$p->nama}}</h5>
+                    <p>Event Imlek</p>
+                    <p>{{$data_grup->asal_sekolah}}</p>
+                    <p>{{$data_grup->tim}}</p>
+                    <p class="special-text">PASURUAN {{date('Y')}}</p>
+                </div>
+            @endforeach
+            
         </div>
     </div>
 

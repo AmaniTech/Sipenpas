@@ -39,7 +39,10 @@
                             </div>
                             <div class="card-body">
                                 <a href="/cetak/peserta/{{$data_grup->id}}" target="_blank">
-                                    <button type="button" class="btn btn-primary mb-3"><i class="bi bi-printer"></i> Cetak Data</button>
+                                    <button type="button" class="btn btn-primary mb-3"><i class="bi bi-printer"></i> Cetak Formulir</button>
+                                </a>
+                                <a href="/cetak/idvard/{{$data_grup->id}}" target="_blank">
+                                    <button type="button" class="btn btn-info mb-3"><i class="bi bi-printer"></i> Cetak ID Card</button>
                                 </a>
                                 <table class="table table-bordered" id="table1">
                                     <thead>
