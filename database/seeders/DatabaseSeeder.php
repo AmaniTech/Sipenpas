@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kategori;
+use App\Models\ListPoin;
 use App\Models\Setting;
+use App\Models\SubKategori;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,5 +36,8 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Lomba Testing',
             'logo' => 'logo.png',
         ]);
+
+
+
     }
 }
