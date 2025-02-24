@@ -92,7 +92,6 @@
         <div class="row">
             @foreach ($peserta as $p)
                 <div class="col-2 id-card mt-3">
-                    <img src="/storage/peserta_foto/{{ $p->foto }}" alt="Foto Profil">
                     @if ($p->posisi == 'Official')
                         <h5>{{ $p->posisi }}</h5>
                     @elseif($p->posisi == 'Pelatih')
@@ -100,6 +99,9 @@
                     @else
                         <h5>PESERTA</h5>
                     @endif
+                    
+                    <img src="/storage/peserta_foto/{{ $p->foto }}" alt="Foto Profil">
+
                     <h4>{{ $p->nama }}</h4>
                     <p>Event Imlek</p>
                     <p>{{ $data_grup->asal_sekolah }}</p>
