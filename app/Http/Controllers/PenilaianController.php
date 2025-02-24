@@ -154,7 +154,7 @@ class PenilaianController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
+            // dd($th);
             return response()->json([
                 'status' => 99,
                 'message' => 'Terjadi Kesalahan!'
@@ -189,7 +189,7 @@ class PenilaianController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
+            // dd($th);
             return response()->json([
                 'status' => 99,
                 'message' => 'Terjadi Kesalahan!'
