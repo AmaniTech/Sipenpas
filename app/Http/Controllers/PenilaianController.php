@@ -97,12 +97,12 @@ class PenilaianController extends Controller
     }
 
     private function ab($id){
-        $data = DB::select("SELECT a.*, b.nama, b.id idsubkategori, d.nama namajuri, c.nama kategori, b.urutan 
-                            FROM penilaian a 
+        $data = DB::select("SELECT a.*, b.nama, b.id idsubkategori, d.nama namajuri, c.id idkategori ,c.nama kategori, b.urutan FROM penilaian a 
                             JOIN sub_kategori b ON a.sub_kategori_id = b.id 
                             JOIN kategori c ON b.kategori_id = c.id
                             JOIN juri d ON a.juri_id = d.id
-                            WHERE a.grup_id = $id");
+                            WHERE a.grup_id = $id 
+                            ORDER BY c.id");
 
         $data_sekolah = Grup::where('id', $id)->with('peserta')->first();
 
