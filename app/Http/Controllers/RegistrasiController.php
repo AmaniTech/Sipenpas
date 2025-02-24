@@ -31,7 +31,7 @@ class RegistrasiController extends Controller
 
             $filebukti = "bayar_{$request->asal_sekolah}_{$request->tim}." . $request->file("bukti_pembayaran")->getClientOriginalExtension();
             $bukti_pembayaran = $request->file("bukti_pembayaran");
-            $bukti_pembayaran->storeAs('bukti_pembayaran', $filebukti , 'public');
+            $bukti_pembayaran->storeAs('bukti_pembayaran', $filebukti, 'public');
 
             $grup = Grup::create([
                 'asal_sekolah' => $request->asal_sekolah,
@@ -44,15 +44,21 @@ class RegistrasiController extends Controller
 
             $roles = ['Official', 'Pelatih', 'Danton'];
             for ($i = 1; $i <= 15; $i++) {
-                $roles[] = 'Anggota ' . $i;
+                $roles[] = 'Anggota';
             }
 
             foreach ($roles as $index => $role) {
                 $pesertaName = $request->peserta[$index] ?? null;
+
+                if (empty($pesertaName)) {
+                    continue;
+                }
+
                 $filename = null;
 
                 if ($request->hasFile("foto_peserta.$index")) {
-                    $filename = "{$pesertaName}_{$request->asal_sekolah}_{$request->tim}." . $request->file("foto_peserta.$index")->getClientOriginalExtension();
+                    $filename = "{$pesertaName}_{$request->asal_sekolah}_{$request->tim}." .
+                        $request->file("foto_peserta.$index")->getClientOriginalExtension();
                     $request->file("foto_peserta.$index")->storeAs('peserta_foto', $filename, 'public');
                 }
 
@@ -63,9 +69,6 @@ class RegistrasiController extends Controller
                     'foto' => $filename,
                 ]);
             }
-
-
-
             FacadesDB::commit();
             return redirect()->back()->with('success', 'Registrasi berhasil');
         } catch (\Exception $e) {
@@ -74,7 +77,8 @@ class RegistrasiController extends Controller
         }
     }
 
-    public function showPeserta(){
+    public function showPeserta()
+    {
         $grup = Grup::all();
 
         return view('peserta.index', [
@@ -82,7 +86,8 @@ class RegistrasiController extends Controller
         ]);
     }
 
-    public function showDetailPeserta($id){
+    public function showDetailPeserta($id)
+    {
         $peserta = Peserta::where('grup_id', $id)->get();
 
         $data_grup = Grup::where('id', $id)->first();
@@ -92,7 +97,8 @@ class RegistrasiController extends Controller
         ]);
     }
 
-    public function a(Request $request, $id){
+    public function a(Request $request, $id)
+    {
         $old_foto = Peserta::where('id', $id)->value('foto');
 
         $pesertaName = $request->input("name$id");
@@ -103,7 +109,7 @@ class RegistrasiController extends Controller
         $asal_sekolah = $data_grup->asal_sekolah;
         $tim = $data_grup->tim;
 
-        
+
         $filename = "{$pesertaName}_{$asal_sekolah}_{$tim}";
         if ($request->hasFile("photo$id")) {
             $fileExtension = $request->file("photo$id")->getClientOriginalExtension();
@@ -123,11 +129,12 @@ class RegistrasiController extends Controller
             'foto' => $filename
         ]);
 
-        toast('Data berhasil di update','success');
+        toast('Data berhasil di update', 'success');
         return redirect()->back();
     }
 
-    public function cetakbos($grup_id){
+    public function cetakbos($grup_id)
+    {
         $peserta = Peserta::where('grup_id', $grup_id)->whereNotIn('posisi', ['Danton', 'Official', 'Pelatih'])->get();
         $data_grup = Grup::where('id', $grup_id)->first();
 
@@ -140,14 +147,16 @@ class RegistrasiController extends Controller
         ]);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         Peserta::where('id', $id)->delete();
 
-        toast('Hapus Sukses!','success');
+        toast('Hapus Sukses!', 'success');
         return redirect()->back();
     }
 
-    public function cetakIDCard($grup_id){
+    public function cetakIDCard($grup_id)
+    {
         $peserta = Peserta::where('grup_id', $grup_id)->get();
         $data_grup = Grup::where('id', $grup_id)->first();
         return view('peserta.listPeserta.cetakidCard', [
