@@ -79,8 +79,7 @@ class PenilaianController extends Controller
 
 
         if ($cek > 0) {
-            Alert::error('Gagal', 'Penilaian Sudah Dilakukan');
-            return back();
+            return $this->ab($id);
         }
 
         $data_sekolah = Grup::where('id', $id)->with('peserta')->first();
@@ -96,6 +95,29 @@ class PenilaianController extends Controller
             'juri' => $juri
         ]);
     }
+
+    private function ab($id){
+        $data = DB::select("SELECT a.*, b.nama, b.id idsubkategori, d.nama namajuri, c.nama kategori, b.urutan 
+                            FROM penilaian a 
+                            JOIN sub_kategori b ON a.sub_kategori_id = b.id 
+                            JOIN kategori c ON b.kategori_id = c.id
+                            JOIN juri d ON a.juri_id = d.id
+                            WHERE a.grup_id = $id");
+
+        $data_sekolah = Grup::where('id', $id)->with('peserta')->first();
+
+        $da = $data[0];
+        
+        $juri = Juri::all();
+
+        return view('penilaian.nilai.edit', [
+            'data_sekolah' => $data_sekolah,
+            'da' => $da,
+            'data' => $data,
+            'juri' => $juri
+        ]);
+        
+    }   
 
     public function main(Request $req)
     {
@@ -118,6 +140,41 @@ class PenilaianController extends Controller
                 ]);
             }
 
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Sukses!'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            return response()->json([
+                'status' => 99,
+                'message' => 'Terjadi Kesalahan!'
+            ]);
+        }
+    }
+
+    public function update(Request $req)
+    {
+        $idnya = $req->idnya;
+        $poin = $req->poin;
+        $grup_id = $req->grup_id;
+        $juri = $req->juri;
+
+        try {
+            DB::beginTransaction();
+
+            foreach ($idnya as $v) {
+                Penilaian::where('id', $v)->update([
+                    'poin' => $poin[$v],
+                ]);
+            }
+
+            Penilaian::where('grup_id', $grup_id)->update([
+                'juri_id' => $juri,
+            ]);
 
             DB::commit();
             return response()->json([
