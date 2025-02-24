@@ -8,11 +8,11 @@
         <div class="app-content-header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-6"><h3 class="mb-0">Penilaian ({{$data_sekolah->asal_sekolah}} - {{$data_sekolah->tim}})</h3></div>
+                    <div class="col-sm-6"><h3 class="mb-0">Update Penilaian ({{$data_sekolah->asal_sekolah}} - {{$data_sekolah->tim}})</h3></div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="/penilaian">Penilaian</a></li>
+                            <li class="breadcrumb-item"><a href="/penilaian">Penilaian <b>(*Update)</b></a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$data_sekolah->asal_sekolah}} - {{$data_sekolah->tim}}</li>
                         </ol>
                     </div>
@@ -33,11 +33,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-1">
-                                    <button class="btn btn-primary btn-rounded" onclick="simpanKuy(this)" title="Simpan">
-                                        <i class="bi bi-floppy"></i>
+                                    <button class="btn btn-info btn-rounded" onclick="simpanYangKuy(this)" title="Update">
+                                        <i class="bi bi-pencil-square"></i>
                                     </button>
                                     <a class="btn btn-danger btn-rounded" href="/penilaian">
-                                        Batal
+                                        Back
                                     </a>
                                 </div>
                                 <div class="col" id="loading" style="display: none;">
@@ -114,7 +114,7 @@
                                             <td width="40%" style="border: 0px none;">
                                                 <select name="juri" type="text" style="width:70%; border: 0 none; border-bottom: 1px solid black; background-color: #FCF3CF;">
                                                     @foreach ($juri as $j)
-                                                        <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                                        <option value="{{ $j->id }}" {{ $da->juri_id == $j->id ? 'selected' : '' }}>{{ $j->nama }}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -125,41 +125,54 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-wrap">
-                                @foreach ($kategori as $i)
-                                    <div class="col-md-4">
-                                        <input type="hidden" name="kategori[]" value="{{$i->id}}">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>{{$i->nama}}</th>
-                                                    <th>Nilai</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($i->subkategori as $sk)
+                                <div class="col-md-4">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>Urutan</th>
+                                                <th>Penilaian</th>
+                                                <th>Nilai</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $header = 'hmmm';
+                                            @endphp
+                                            @foreach ($data as $d)
+                                                @if ($d->kategori !== $header)
+                                                    @php
+                                                        $header = $d->kategori;
+                                                    @endphp
                                                     <tr>
-                                                        <input type="hidden" name="i[]" value="{{$i->id}}">
-                                                        <input type="hidden" name="u[]" value="{{$sk->id}}">
-                                                        <td>{{$sk->nama}}</td>
-                                                        <td>
-                                                            <input type="number" name="nilai[{{$i->id}}][{{$sk->id}}]" style="width:100%; text-align: center; border: 0 none; background-color: #FCF3CF;">
-                                                        </td>
+                                                        <th colspan="4" align="left" style="background-color: #D3D3D3;">{{$d->kategori}}</th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @endforeach
+                                                    <tr>
+                                                        <input type="hidden" name="idnya[]" value="{{$d->id}}">
+                                                        <td>{{$d->urutan}}</td>
+                                                        <td>{{$d->nama}}</td>
+                                                        <td><input type="number" class="text-center" name="poin[{{$d->id}}]" value="{{$d->poin}}" style="border: 0 none; background-color: #FCF3CF;"><td>
+                                                    </tr>
+                                                @else
+                                                    <tr>
+                                                        <input type="hidden" name="idnya[]" value="{{$d->id}}">
+                                                        <td>{{$d->urutan}}</td>
+                                                        <td>{{$d->nama}}</td>
+                                                        <td><input type="number" class="text-center" name="poin[{{$d->id}}]" value="{{$d->poin}}" style="border: 0 none; background-color: #FCF3CF;"><td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                 </form>
+    </form>
             </div>
         </div>
 
@@ -184,12 +197,12 @@
         $('#loading').css('display', 'none');
     }
 
-    function simpanKuy(a) {
+    function simpanYangKuy(a) {
         $.ajax({
-            url: "/a/penilaian",
+            url: "/b/penilaian",
             dataType: 'json',
             data: $("#formPenilaian").serialize(),
-            type: 'POST',
+            type: 'PUT',
             beforeSend: function() {
                 openModal();
             },
@@ -206,7 +219,7 @@
                         showCancelButton: false,
                         showConfirmButton: true
                     }).then(function() {
-                        window.location.href = "/penilaian";
+                        location.reload();
                     });
 
                 }else{

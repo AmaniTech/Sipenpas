@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/penilaian/nilai', [PenilaianController::class, 'index'])->name('penilaian.grup');
     Route::get('/penilaian/grup/{id}', [PenilaianController::class, 'a'])->name('penilaian.a');
     Route::post('/a/penilaian', [PenilaianController::class, 'main']);
+    Route::put('/b/penilaian', [PenilaianController::class, 'update']);
 
     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::put('/setting/update/{id}', [SettingController::class, 'update'])->name('setting.update');
