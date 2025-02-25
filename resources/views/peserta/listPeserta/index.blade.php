@@ -91,10 +91,6 @@
                                                                 <input type="text" class="form-control" name="name{{$g->id}}" value="{{$g->nama}}">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="" class="form-label">Posisi</label>
-                                                                <input type="text" class="form-control" name="posisi{{$g->id}}" value="{{$g->posisi}}">
-                                                            </div>
-                                                            <div class="mb-3">
                                                                 <input type="file" class="dropify" name="photo{{$g->id}}"/>
                                                             </div>
                                                         </div>
@@ -122,42 +118,5 @@
 
 <script>
     let table = new DataTable('#table1');
-
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    });
-
-    function funcupdate(no) {
-        let files = $(`#file${no}`)[0].files;
-        const name = $(`#name${no}`).val();
-        const posisi = $(`#posisi${no}`).val();
-
-        var data = new FormData();
-        data.append('file', files[0]);
-        data.append('no', no);
-        data.append('name', name);
-        data.append('posisi', posisi);
-
-        $.ajax({
-            url: "/update/peserta",
-            method: 'PUT',
-            data: data,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(xhr) {
-                console.log(xhr);
-            }
-        });
-    }
-
-    
 </script>
 @endsection

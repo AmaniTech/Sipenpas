@@ -2,7 +2,7 @@
     <div class="sidebar-brand">
         <a href="{{ route('home') }}" class="brand-link">
             <img src="/storage/logo/{{DB::table('setting')->where('id', 1)->value('logo')}}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
-            <span class="brand-text fw-light">AdminLTE 4</span>
+            <span class="brand-text fw-light">SIPENPAS {{date('Y')}}</span>
         </a>
     </div>
     <div class="sidebar-wrapper">
