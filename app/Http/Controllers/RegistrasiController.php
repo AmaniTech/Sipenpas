@@ -125,7 +125,6 @@ class RegistrasiController extends Controller
 
         Peserta::where('id', $request->id)->update([
             'nama' => $pesertaName,
-            'posisi' => $posisi,
             'foto' => $filename
         ]);
 
