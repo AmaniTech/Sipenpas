@@ -79,7 +79,7 @@ class AdministrasiController extends Controller
 
     public function print()
     {
-        $administrasi = Administrasi::where('jenis', 'administrasi')->get();
+        $administrasi = Administrasi::where('jenis', 'Administrasi')->get();
         $juri = Administrasi::where('jenis', 'Juri Arena Lomba')->get();
 
 
