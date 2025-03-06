@@ -137,7 +137,7 @@ class PenilaianController extends Controller
             DB::beginTransaction();
 
             $penilaian = DB::table('penilaian')->insertGetId([
-                'grup_id' => $grup_id,
+                'grup_id' => $req->grup_id,
                 'poin' => 0, 
                 'posted_at' => Carbon::now(),
             ]);
@@ -164,9 +164,9 @@ class PenilaianController extends Controller
             $dani_plus = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('plus');
             $dani_min = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('min');
 
-            $totaleDhani = $dani_plus + $dani_min;
+            $totaleDhani = $dani_plus - $dani_min;
 
-            Penilaian::where('id', $penilaian)->update([
+            DB::table('penilaian')->where('id', $penilaian)->update([
                 'poin' => $totaleDhani,
             ]);
 
