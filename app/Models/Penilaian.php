@@ -24,5 +24,10 @@ class Penilaian extends Model
         return $this->belongsTo(SubKategori::class);
     }
 
+    public function items()
+    {
+        return $this->hasMany(PenilaianItem::class, 'penilaian_id');
+    }
+
 
 }

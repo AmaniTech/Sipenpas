@@ -11,6 +11,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 
 class PenilaianController extends Controller
 {
@@ -86,6 +87,7 @@ class PenilaianController extends Controller
 
         $kategori = Kategori::with('subkategori')->get();
 
+
         $juri = Juri::all();
 
         return view('penilaian.nilai.index', [
@@ -127,24 +129,46 @@ class PenilaianController extends Controller
 
     public function main(Request $req)
     {
-        $urutanKategori = $req->kategori;
-        $juri = $req->juri;
-        $grup_id = $req->grup_id;
-        $i = $req->i;
-        $u = $req->u;
+        $nilaiData = $req->input('nilai'); 
+
         // return response()->json($req->all());
 
         try {
             DB::beginTransaction();
 
-            foreach ($u as $key => $value) {
-                Penilaian::create([
-                    'juri_id' => $juri,
-                    'grup_id' => $grup_id,
-                    'sub_kategori_id' => $value,
-                    'poin' => $req->nilai[$i[$key]][$value],
-                ]);
+            $penilaian = DB::table('penilaian')->insertGetId([
+                'grup_id' => $grup_id,
+                'poin' => 0, 
+                'posted_at' => Carbon::now(),
+            ]);
+
+            foreach ($nilaiData as $kategori_id => $subkategori) {
+                foreach ($subkategori as $sub_kategori_id => $data) {
+                    $nilai_juri = $data['juri'] ?? []; 
+                    
+                    
+                    foreach ($nilai_juri as $juri_id => $nilai_per_juri) {
+                        DB::table('penilaianitem')->insert([
+                            'penilaian_id' => $penilaian,
+                            'kategori_id' => $kategori_id,
+                            'sub_kategori_id' => $sub_kategori_id,
+                            'juri' => $juri_id + 1,
+                            'plus' => $nilai_per_juri ?? 0, 
+                            'min' => 0, 
+                            'created_at' => Carbon::now(),
+                        ]);
+                    }
+                }
             }
+
+            $dani_plus = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('plus');
+            $dani_min = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('min');
+
+            $totaleDhani = $dani_plus + $dani_min;
+
+            Penilaian::where('id', $penilaian)->update([
+                'poin' => $totaleDhani,
+            ]);
 
 
             DB::commit();
@@ -154,7 +178,7 @@ class PenilaianController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            // dd($th);
+            dd($th);
             return response()->json([
                 'status' => 99,
                 'message' => 'Terjadi Kesalahan!'
