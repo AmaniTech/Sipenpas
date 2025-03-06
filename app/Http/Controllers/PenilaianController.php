@@ -164,7 +164,7 @@ class PenilaianController extends Controller
             $dani_plus = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('plus');
             $dani_min = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('min');
 
-            $totaleDhani = $dani_plus + $dani_min;
+            $totaleDhani = $dani_plus - $dani_min;
 
             Penilaian::where('id', $penilaian)->update([
                 'poin' => $totaleDhani,
