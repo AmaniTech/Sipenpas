@@ -20,10 +20,12 @@ class KategoriController extends Controller
         try {
             $request->validate([
                 'nama' => 'required',
+                'jml_juri' => 'required',
             ]);
 
             Kategori::create([
                 'nama' => $request->nama,
+                'jml_juri' => $request->jml_juri,
             ]);
 
             toast('Tambah Sukses!', 'success');
@@ -39,10 +41,12 @@ class KategoriController extends Controller
         try {
             $request->validate([
                 'nama' => 'required',
+                'jml_juri' => 'required',
             ]);
 
             Kategori::find($id)->update([
                 'nama' => $request->nama,
+                'jml_juri' => $request->jml_juri,
             ]);
 
             toast('Update Sukses!', 'success');

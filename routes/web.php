@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\LoginController;
@@ -68,6 +69,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/penilaian/grup/{id}', [PenilaianController::class, 'a'])->name('penilaian.a');
     Route::post('/a/penilaian', [PenilaianController::class, 'main']);
     Route::put('/b/penilaian', [PenilaianController::class, 'update']);
+
+    Route::get('/administrasi', [AdministrasiController::class, 'index'])->name('administrasi.index');
+    Route::post('/administrasi/store', [AdministrasiController::class, 'store'])->name('administrasi.store');
+    Route::put('/administrasi/update/{id}', [AdministrasiController::class, 'update'])->name('administrasi.update');
+    Route::delete('/administrasi/delete/{id}', [AdministrasiController::class, 'delete'])->name('administrasi.delete');
+    Route::get('/administrasi/print', [AdministrasiController::class, 'print'])->name('administrasi.print');
 
     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::put('/setting/update/{id}', [SettingController::class, 'update'])->name('setting.update');

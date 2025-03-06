@@ -22,6 +22,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('administrasi.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'administrasi.index' ? 'active' : '' }}">
+                        <i class="bi bi-database"></i>
+                        <p>Administrasi & Juri Arena</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('kategori.index') }}"
                         class="nav-link {{ Route::currentRouteName() == 'kategori.index' ? 'active' : '' }}">
                         <i class="bi bi-database"></i>
