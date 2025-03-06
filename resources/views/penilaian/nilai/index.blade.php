@@ -108,17 +108,6 @@
                                                 <input type="date" name="tgl" id="tgl" style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{date('Y-m-d')}}" readonly>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td width="50%">Juri</td>
-                                            <td width="10%" align="right">:</td>
-                                            <td width="40%" style="border: 0px none;">
-                                                <select name="juri" type="text" style="width:70%; border: 0 none; border-bottom: 1px solid black; background-color: #FCF3CF;">
-                                                    @foreach ($juri as $j)
-                                                        <option value="{{ $j->id }}">{{ $j->nama }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -137,7 +126,12 @@
                                             <thead>
                                                 <tr>
                                                     <th>{{$i->nama}}</th>
-                                                    <th>Nilai</th>
+                                                    @php
+                                                        $jml_juri = $i->jml_juri;
+                                                    @endphp
+                                                    @for ($a = 0; $a < $jml_juri; $a++)
+                                                        <th>Juri {{ $a + 1 }}</th>
+                                                    @endfor
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -146,9 +140,16 @@
                                                         <input type="hidden" name="i[]" value="{{$i->id}}">
                                                         <input type="hidden" name="u[]" value="{{$sk->id}}">
                                                         <td>{{$sk->nama}}</td>
-                                                        <td>
+
+                                                        {{-- <td>
                                                             <input type="number" name="nilai[{{$i->id}}][{{$sk->id}}]" style="width:100%; text-align: center; border: 0 none; background-color: #FCF3CF;">
-                                                        </td>
+                                                        </td> --}}
+
+                                                        @for ($a = 0; $a < $jml_juri; $a++)
+                                                            <td>
+                                                                <input type="number" name="nilai[{{$i->id}}][{{$sk->id}}][juri][{{$a}}]" style="width:100%; text-align: center; border: 0 none; background-color: #FCF3CF;">
+                                                            </td>
+                                                        @endfor
                                                     </tr>
                                                 @endforeach
                                             </tbody>

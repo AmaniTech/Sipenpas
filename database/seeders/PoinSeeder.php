@@ -7,6 +7,7 @@ use App\Models\ListPoin;
 use App\Models\SubKategori;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class PoinSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class PoinSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = Faker::create();
         $kategori = [
             'Make Up',
             'Kostum',
@@ -27,6 +29,7 @@ class PoinSeeder extends Seeder
         foreach ($kategori as $key => $value) {
             Kategori::create([
                 'nama' => $value,
+                'jml_juri' => $faker->numberBetween(0, 3)
             ]);
         }
 
