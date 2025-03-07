@@ -44,9 +44,11 @@
                                     <strong>Loading...</strong>
                                     <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
                                 </div>
+
+                               
                             </div>
                             <br>
-                            <form id="formPenilaian">
+    <form id="formPenilaian">
                             <div class="row">
                                 <div class="col-md-4">
                                     <table width="100%">
@@ -55,7 +57,7 @@
                                             <td>:</td>
                                             <td style="border: 0px none;">
                                                <input type="text" style="width:70%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_sekolah->asal_sekolah}}" readonly>
-                                               <input type="hidden" name="grup_id" value="{{$data_sekolah->id}}">
+                                               <input type="hidden" name="grup_id" value="{{$data_sekolah->id}}" id="grup_id">
                                             </td>
                                         </tr>
                                         <tr>
@@ -141,10 +143,6 @@
                                                         <input type="hidden" name="u[]" value="{{$sk->id}}">
                                                         <td>{{$sk->nama}}</td>
 
-                                                        {{-- <td>
-                                                            <input type="number" name="nilai[{{$i->id}}][{{$sk->id}}]" style="width:100%; text-align: center; border: 0 none; background-color: #FCF3CF;">
-                                                        </td> --}}
-
                                                         @for ($a = 0; $a < $jml_juri; $a++)
                                                             <td>
                                                                 <input type="number" name="nilai[{{$i->id}}][{{$sk->id}}][juri][{{$a}}]" style="width:100%; text-align: center; border: 0 none; background-color: #FCF3CF;">
@@ -160,7 +158,44 @@
                         </div>
                     </div>
                 </div>
-                 </form>
+                {{-- minus --}}
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap">
+                                <div class="col-md-4">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4" class="text-center bg-danger" style="color: white">Skor Minus</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Jenis</th>
+                                                <th>Tipe</th>
+                                                <th>Skor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($minus as $m)
+                                                <tr>
+                                                    <input type="hidden" name="id_administrasi[]" value="{{$m->id}}">
+                                                    <td>{{$m->nama}}</td>
+                                                    <td>{{$m->jenis}}</td>
+                                                    <td>{{$m->tipe}}</td>
+                                                    <td>
+                                                        <input type="number" name="minus[{{$m->id}}]" style="width:100%; text-align: center; border: 0 none; background-color: #FCF3CF;">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </form>
             </div>
         </div>
 
@@ -222,5 +257,6 @@
             }
         });
     }
+
 </script>
 @endsection

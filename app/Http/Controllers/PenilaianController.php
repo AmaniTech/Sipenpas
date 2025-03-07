@@ -8,6 +8,7 @@ use App\Models\Peserta;
 use App\Models\SubKategori;
 use App\Models\Juri;
 use App\Models\Kategori;
+use App\Models\Administrasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -26,48 +27,32 @@ class PenilaianController extends Controller
 
         $jumlahNilai = SubKategori::count();
 
-
         return datatables()->of($query)
             ->addColumn('action', function ($item) {
-                return '
-                    <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
-                ';
-            })
-            ->addColumn('progress', function ($item) use ($jumlahNilai) {
-
-                $progressPenilaian = Penilaian::where('grup_id', $item->id)->count();
-                if ($jumlahNilai == 0 || $progressPenilaian == 0) {
-                    $progress = 0;
-                    $areavalue = 100;
-                } else {
-                    $progress = ($progressPenilaian / $jumlahNilai) * 100;
-                    $areavalue = $progress;
+                $x = Penilaian::where('grup_id', $item->id)->value('status');
+                if ($x == 'A') {
+                    return '
+                        <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
+                    ';
+                }else if (empty($x)) {
+                    return '
+                        <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
+                    ';
+                }else {
+                    return '
+                        <span class="badge bg-danger">DISKULIFIKASI</span>
+                    ';
                 }
-
-
-                $bgprogress = 'bg-danger';
-
-                if ($progress >= 25) {
-                    $bgprogress = 'bg-warning';
+                
+            })->addColumn('status', function ($item) {
+                $y = Penilaian::where('grup_id', $item->id)->value('status');
+                if (empty($y)) {
+                    return 'Belum ada Penilaian';
+                }else if ($y == 'A') {
+                    return 'Aktif';
+                }else{
+                    return 'Diskualifikasi';
                 }
-
-                if ($progress >= 50) {
-                    $bgprogress = 'bg-info';
-                }
-
-                if ($progress >= 75) {
-                    $bgprogress = 'bg-primary';
-                }
-
-                if ($progress >= 100) {
-                    $bgprogress = 'bg-success';
-                }
-
-                return '
-                   <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar ' . $bgprogress . '" style="width: ' . $areavalue . '%">' . $progress . '% </div>
-                    </div>
-                ';
             })
             ->addIndexColumn()
             ->rawColumns(['action', 'progress'])
@@ -78,60 +63,64 @@ class PenilaianController extends Controller
     {
         $cek = Penilaian::where('grup_id', $id)->count();
 
-
         if ($cek > 0) {
             return $this->ab($id);
         }
 
         $data_sekolah = Grup::where('id', $id)->with('peserta')->first();
-
         $kategori = Kategori::with('subkategori')->get();
-
-
         $juri = Juri::all();
+        $minus = Administrasi::all();
 
         return view('penilaian.nilai.index', [
             'data_sekolah' => $data_sekolah,
-            // 'data_peserta' => $data_peserta,
             'kategori' => $kategori,
+            'minus' => $minus,
             'juri' => $juri
         ]);
     }
 
     private function ab($id)
     {
-        $data = DB::select("SELECT a.*,
-        b.nama,
-        b.id AS idsubkategori,
-        d.nama AS namajuri,
-        c.nama AS kategori,
-        b.urutan
-        FROM penilaian a
-        JOIN sub_kategori b ON a.sub_kategori_id = b.id
-        JOIN kategori c ON b.kategori_id = c.id
-        JOIN juri d ON a.juri_id = d.id
-        WHERE a.grup_id = $id
-        ORDER BY c.nama, b.urutan");
+        $id_penilaian = Penilaian::where('grup_id', $id)->value('id');
+
+        $data = DB::select("SELECT a.*, b.nama kategoriname, c.nama sub_kategoriname FROM penilaianitem a 
+                            JOIN kategori b ON a.kategori_id = b.id
+                            JOIN sub_kategori c ON a.sub_kategori_id = c.id
+                            WHERE penilaian_id = $id_penilaian 
+                            ORDER BY a.kategori_id, a.sub_kategori_id");
+
+        $dataMinus = DB::select("SELECT a.*, b.nama, b.tipe FROM penilaianadministrasi a 
+                                JOIN administrasi b ON a.administrasi_id = b.id
+                                JOIN penilaian c ON a.penilaian_id = c.id
+                                WHERE penilaian_id = $id_penilaian");
 
         $data_sekolah = Grup::where('id', $id)->with('peserta')->first();
 
         $da = $data[0];
 
-        $juri = Juri::all();
+        $totalnilai = Penilaian::where('id', $id_penilaian)->value('poin');
 
         return view('penilaian.nilai.edit', [
             'data_sekolah' => $data_sekolah,
             'da' => $da,
             'data' => $data,
-            'juri' => $juri
+            'dataMinus' => $dataMinus,
+            'totalnilai' => $totalnilai,
+            'id_penilaian' => $id_penilaian 
         ]);
     }
 
     public function main(Request $req)
     {
         $nilaiData = $req->input('nilai'); 
+        $id_administrasi = $req->id_administrasi; 
+        $minus = $req->minus; 
 
         // return response()->json($req->all());
+
+        // A = 'aktif'
+        // C = 'diskualifikasi'
 
         try {
             DB::beginTransaction();
@@ -140,6 +129,7 @@ class PenilaianController extends Controller
                 'grup_id' => $req->grup_id,
                 'poin' => 0, 
                 'posted_at' => Carbon::now(),
+                'status' => 'A'
             ]);
 
             foreach ($nilaiData as $kategori_id => $subkategori) {
@@ -161,16 +151,59 @@ class PenilaianController extends Controller
                 }
             }
 
-            $dani_plus = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('plus');
-            $dani_min = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('min');
+            foreach ($id_administrasi as $key => $value) {
+                DB::table('penilaianadministrasi')->where('id', $value)->insert([
+                    'penilaian_id' => $penilaian,   
+                    'administrasi_id' => $value,
+                    'poin' => $minus[$value],
+                ]);
+            }
 
-            $totaleDhani = $dani_plus - $dani_min;
+            $this->updatePenilaianHeader($penilaian);
 
-            DB::table('penilaian')->where('id', $penilaian)->update([
-                'poin' => $totaleDhani,
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Sukses!'
             ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            // dd($th);
+            return response()->json([
+                'status' => 99,
+                'message' => 'Terjadi Kesalahan!'
+            ]);
+        }
+    }
 
+    public function update(Request $req)
+    {
+        $grup_id = $req->grup_id;
+        $idnya = $req->idnya;
+        $poin_plus = $req->poin_plus;
+        
+        $id_administrasi = $req->id_administrasi;
+        $poin_min = $req->poin_min;
 
+        $id_penilaian = Penilaian::where('grup_id', $grup_id)->value('id');
+        
+        try {
+            DB::beginTransaction();
+
+            foreach ($idnya as $v) {
+                DB::table('penilaianitem')->where('id', $v)->update([
+                    'plus' => $poin_plus[$v],
+                ]);   
+            }
+
+            foreach ($id_administrasi as $key => $value) {
+                DB::table('penilaianadministrasi')->where('id', $value)->update([
+                    'poin' => $poin_min[$value],
+                ]);
+            }
+
+            $this->updatePenilaianHeader($id_penilaian);
+            
             DB::commit();
             return response()->json([
                 'status' => 200,
@@ -186,38 +219,27 @@ class PenilaianController extends Controller
         }
     }
 
-    public function update(Request $req)
-    {
-        $idnya = $req->idnya;
-        $poin = $req->poin;
-        $grup_id = $req->grup_id;
-        $juri = $req->juri;
+    private function updatePenilaianHeader($penilaian){
+        $dani_plus = DB::table('penilaianitem')->where('penilaian_id', $penilaian)->sum('plus');
+        $dani_min = DB::table('penilaianadministrasi')->where('penilaian_id', $penilaian)->sum('poin');
 
-        try {
-            DB::beginTransaction();
+        $totaleDhani = $dani_plus - $dani_min;
 
-            foreach ($idnya as $v) {
-                Penilaian::where('id', $v)->update([
-                    'poin' => $poin[$v],
-                ]);
-            }
+        DB::table('penilaian')->where('id', $penilaian)->update([
+            'poin' => $totaleDhani,
+        ]);
+    }
 
-            Penilaian::where('grup_id', $grup_id)->update([
-                'juri_id' => $juri,
-            ]);
+    public function didis(Request $req){
+        $id = $req->data;
 
-            DB::commit();
-            return response()->json([
-                'status' => 200,
-                'message' => 'Sukses!'
-            ]);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            // dd($th);
-            return response()->json([
-                'status' => 99,
-                'message' => 'Terjadi Kesalahan!'
-            ]);
-        }
+        Penilaian::where('grup_id', $id)->update([
+            'status' => 'C'
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Sukses!'
+        ]);
     }
 }

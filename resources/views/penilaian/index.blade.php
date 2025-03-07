@@ -51,7 +51,7 @@
                                         <th scope="col" width="5%">No</th>
                                         <th scope="col">Grup</th>
                                         <th scope="col">Tim</th>
-                                        <th scope="col" width="20%">Status Penilaian</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -110,8 +110,8 @@
                         name: 'tim'
                     },
                     {
-                        data: 'progress',
-                        name: 'progress'
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'action',
