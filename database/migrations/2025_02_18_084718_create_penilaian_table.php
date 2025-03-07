@@ -11,35 +11,42 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('penilaian', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->unsignedBigInteger('grup_id');
-        //     $table->foreign('grup_id')->references('id')->on('grup');
-        //     $table->integer('poin');
-        //     $table->datetime('posted_at');
-        //     $table->timestamps();
-        //     $table->softDeletes();
-        // });
-        
-        // CREATE TABLE "penilaian" (
-        //     "id" INTEGER NOT NULL,
-        //     "grup_id" integer NOT NULL,
-        //     "poin" integer,
-        //     "posted_at" datetime,
-        //     PRIMARY KEY ("id")
-        // );
 
-        // CREATE TABLE "penilaianitem" (
-        //     "id" INTEGER NOT NULL,
-        //     "penilaian_id" INTEGER,
-        //     "kategori_id" INTEGER,
-        //     "sub_kategori_id" INTEGER,
-        //     "juri_id" integer,
-        //     "plus" integer,
-        //     "min" integer,
-        //     "created_at" datetime,
-        //     PRIMARY KEY ("id")
-        // );
+        DB::statement("
+            CREATE TABLE penilaian (
+                id INTEGER NOT NULL,
+                grup_id integer NOT NULL,
+                poin integer,
+                posted_at datetime,
+                status varchar(1),
+                updated_at datetime,
+                PRIMARY KEY (id)
+            )
+        ");
+
+        DB::statement("
+            CREATE TABLE penilaianadministrasi (
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                administrasi_id INTEGER,
+                poin integer,
+                penilaian_id INTEGER
+            );
+        ");
+
+        DB::statement("
+            CREATE TABLE penilaianitem (
+                id INTEGER NOT NULL,
+                penilaian_id INTEGER,
+                kategori_id INTEGER,
+                sub_kategori_id INTEGER,
+                juri_id integer,
+                plus integer,
+                min integer,
+                created_at datetime,
+                PRIMARY KEY (id)
+            )
+        ");
+
     }
 
     /**
@@ -48,5 +55,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('penilaian');
+        Schema::dropIfExists('penilaianitem');
+        Schema::dropIfExists('penilaianadministrasi');
     }
 };

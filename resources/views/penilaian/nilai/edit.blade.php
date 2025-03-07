@@ -44,6 +44,12 @@
                                     <strong>Loading...</strong>
                                     <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
                                 </div>
+
+                                <div class="col">
+                                    <button class="btn btn-warning btn-rounded float-end" title="Diskuliafikasi" onclick="diskualifikasi(this)">
+                                        DISKUALIFIKASI
+                                    </button>
+                                </div>
                             </div>
                             <br>
                             <form id="formPenilaian">
@@ -55,7 +61,7 @@
                                             <td>:</td>
                                             <td style="border: 0px none;">
                                                <input type="text" style="width:70%; border: 0 none; border-bottom: 1px solid black;" value="{{$data_sekolah->asal_sekolah}}" readonly>
-                                               <input type="hidden" name="grup_id" value="{{$data_sekolah->id}}">
+                                               <input type="hidden" name="grup_id" value="{{$data_sekolah->id}}" id="grup_id">
                                             </td>
                                         </tr>
                                         <tr>
@@ -109,14 +115,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">Juri</td>
+                                            <td width="50%">Total Nilai</td>
                                             <td width="10%" align="right">:</td>
                                             <td width="40%" style="border: 0px none;">
-                                                <select name="juri" type="text" style="width:70%; border: 0 none; border-bottom: 1px solid black; background-color: #FCF3CF;">
-                                                    @foreach ($juri as $j)
-                                                        <option value="{{ $j->id }}" {{ $da->juri_id == $j->id ? 'selected' : '' }}>{{ $j->nama }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input style="width:100%; border: 0 none; border-bottom: 1px solid black;" value="{{$totalnilai}}" readonly>
                                             </td>
                                         </tr>
                                     </table>
@@ -133,9 +135,9 @@
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
-                                                <th>Urutan</th>
                                                 <th>Penilaian</th>
-                                                <th>Nilai</th>
+                                                <th>Juri</th>
+                                                <th colspan="3">Nilai</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -143,28 +145,59 @@
                                                 $header = 'hmmm';
                                             @endphp
                                             @foreach ($data as $d)
-                                                @if ($d->kategori !== $header)
+                                                @if ($d->kategoriname !== $header)
                                                     @php
-                                                        $header = $d->kategori;
+                                                        $header = $d->kategoriname;
                                                     @endphp
                                                     <tr>
-                                                        <th colspan="4" align="left" style="background-color: #D3D3D3;">{{$d->kategori}}</th>
+                                                        <th colspan="6" align="left" style="background-color: #D3D3D3;">{{$d->kategoriname}}</th>
                                                     </tr>
                                                     <tr>
                                                         <input type="hidden" name="idnya[]" value="{{$d->id}}">
-                                                        <td>{{$d->urutan}}</td>
-                                                        <td>{{$d->nama}}</td>
-                                                        <td><input type="number" class="text-center" name="poin[{{$d->id}}]" value="{{$d->poin}}" style="border: 0 none; background-color: #FCF3CF;"><td>
+                                                        <td>{{$d->sub_kategoriname}}</td>
+                                                        <td>{{$d->juri}}</td>
+                                                        <td>
+                                                            <input type="number" class="text-center" name="poin_plus[{{$d->id}}]" value="{{$d->plus}}" style="border: 0 none; background-color: #FCF3CF;">
+                                                        </td>
                                                     </tr>
                                                 @else
                                                     <tr>
                                                         <input type="hidden" name="idnya[]" value="{{$d->id}}">
-                                                        <td>{{$d->urutan}}</td>
-                                                        <td>{{$d->nama}}</td>
-                                                        <td><input type="number" class="text-center" name="poin[{{$d->id}}]" value="{{$d->poin}}" style="border: 0 none; background-color: #FCF3CF;"><td>
+                                                        <td>{{$d->sub_kategoriname}}</td>
+                                                        <td>{{$d->juri}}</td>
+                                                        <td>
+                                                            <input type="number" class="text-center" name="poin_plus[{{$d->id}}]" value="{{$d->plus}}" style="border: 0 none; background-color: #FCF3CF;">
+                                                        </td>
                                                     </tr>
                                                 @endif
                                             @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr colspan="3">
+                                                <th colspan="3" class="text-center bg-danger" style="color: white">Skor Minus</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Tipe</th>
+                                                <th>Poin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($dataMinus as $o)
+                                                <tr>
+                                                    <input type="hidden" name="id_administrasi[]" value="{{$o->id}}">
+                                                    <td>{{$o->nama}}</td>
+                                                    <td>{{$o->tipe}}</td>
+                                                    <td>
+                                                        <input type="number" class="text-center" name="poin_min[{{$o->id}}]" value="{{$o->poin}}" style="border: 0 none; background-color: #FCF3CF;">
+                                                    </td>
+                                                </tr>
+                                            @endforeach                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -233,6 +266,61 @@
                 }
             }
         });
+    }
+
+    function diskualifikasi(params) {
+        const data = $('#grup_id').val();
+
+        Swal.fire({
+            title: "Apakah Anda yakin?",
+            text: "Peserta ini akan di didiskualifikasi!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Lanjutkan!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/didis",
+                    dataType: 'json',
+                    data: {data},
+                    type: 'POST',
+                    beforeSend: function() {
+                        openModal();
+                    },
+                    complete: function() {
+                        closeModal();
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if (data.status == 200) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil!",
+                                text: "Data Berhasil Tersimpan!",
+                                showCancelButton: false,
+                                showConfirmButton: true
+                            }).then(function() {
+                                window.location.href = "/penilaian";
+                            });
+
+                        }else{
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal!",
+                                text: "Terjadi Kesalahan!",
+                                showCancelButton: false,
+                                showConfirmButton: true
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+        
     }
 </script>
 @endsection
