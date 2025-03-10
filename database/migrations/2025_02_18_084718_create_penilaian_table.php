@@ -38,7 +38,7 @@ return new class extends Migration
                 penilaian_id INTEGER,
                 kategori_id INTEGER,
                 sub_kategori_id INTEGER,
-                juri_id integer,
+                juri integer,
                 plus integer,
                 min integer,
                 created_at datetime
