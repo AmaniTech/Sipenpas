@@ -14,39 +14,36 @@ return new class extends Migration
 
         DB::statement("
             CREATE TABLE penilaian (
-                id INTEGER NOT NULL,
+                id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 grup_id integer NOT NULL,
                 poin integer,
                 posted_at datetime,
                 status varchar(1),
-                updated_at datetime,
-                PRIMARY KEY (id)
-            )
+                updated_at datetime
+            );
         ");
 
         DB::statement("
             CREATE TABLE penilaianadministrasi (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                administrasi_id INTEGER,
-                poin integer,
-                penilaian_id INTEGER
+                id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                administrasi_id INT,
+                poin INT,
+                penilaian_id INT
             );
         ");
 
         DB::statement("
             CREATE TABLE penilaianitem (
-                id INTEGER NOT NULL,
+                id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 penilaian_id INTEGER,
                 kategori_id INTEGER,
                 sub_kategori_id INTEGER,
                 juri_id integer,
                 plus integer,
                 min integer,
-                created_at datetime,
-                PRIMARY KEY (id)
-            )
+                created_at datetime
+            );
         ");
-
     }
 
     /**

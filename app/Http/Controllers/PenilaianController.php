@@ -43,7 +43,7 @@ class PenilaianController extends Controller
                         <span class="badge bg-danger">DISKULIFIKASI</span>
                     ';
                 }
-                
+
             })->addColumn('status', function ($item) {
                 $y = Penilaian::where('grup_id', $item->id)->value('status');
                 if (empty($y)) {
@@ -84,13 +84,13 @@ class PenilaianController extends Controller
     {
         $id_penilaian = Penilaian::where('grup_id', $id)->value('id');
 
-        $data = DB::select("SELECT a.*, b.nama kategoriname, c.nama sub_kategoriname FROM penilaianitem a 
+        $data = DB::select("SELECT a.*, b.nama kategoriname, c.nama sub_kategoriname FROM penilaianitem a
                             JOIN kategori b ON a.kategori_id = b.id
                             JOIN sub_kategori c ON a.sub_kategori_id = c.id
-                            WHERE penilaian_id = $id_penilaian 
+                            WHERE penilaian_id = $id_penilaian
                             ORDER BY a.kategori_id, a.sub_kategori_id");
 
-        $dataMinus = DB::select("SELECT a.*, b.nama, b.tipe FROM penilaianadministrasi a 
+        $dataMinus = DB::select("SELECT a.*, b.nama, b.tipe FROM penilaianadministrasi a
                                 JOIN administrasi b ON a.administrasi_id = b.id
                                 JOIN penilaian c ON a.penilaian_id = c.id
                                 WHERE penilaian_id = $id_penilaian");
@@ -107,15 +107,15 @@ class PenilaianController extends Controller
             'data' => $data,
             'dataMinus' => $dataMinus,
             'totalnilai' => $totalnilai,
-            'id_penilaian' => $id_penilaian 
+            'id_penilaian' => $id_penilaian
         ]);
     }
 
     public function main(Request $req)
     {
-        $nilaiData = $req->input('nilai'); 
-        $id_administrasi = $req->id_administrasi; 
-        $minus = $req->minus; 
+        $nilaiData = $req->input('nilai');
+        $id_administrasi = $req->id_administrasi;
+        $minus = $req->minus;
 
         // return response()->json($req->all());
 
@@ -127,24 +127,24 @@ class PenilaianController extends Controller
 
             $penilaian = DB::table('penilaian')->insertGetId([
                 'grup_id' => $req->grup_id,
-                'poin' => 0, 
+                'poin' => 0,
                 'posted_at' => Carbon::now(),
                 'status' => 'A'
             ]);
 
             foreach ($nilaiData as $kategori_id => $subkategori) {
                 foreach ($subkategori as $sub_kategori_id => $data) {
-                    $nilai_juri = $data['juri'] ?? []; 
-                    
-                    
+                    $nilai_juri = $data['juri'] ?? [];
+
+
                     foreach ($nilai_juri as $juri_id => $nilai_per_juri) {
                         DB::table('penilaianitem')->insert([
                             'penilaian_id' => $penilaian,
                             'kategori_id' => $kategori_id,
                             'sub_kategori_id' => $sub_kategori_id,
                             'juri' => $juri_id + 1,
-                            'plus' => $nilai_per_juri ?? 0, 
-                            'min' => 0, 
+                            'plus' => $nilai_per_juri ?? 0,
+                            'min' => 0,
                             'created_at' => Carbon::now(),
                         ]);
                     }
@@ -153,7 +153,7 @@ class PenilaianController extends Controller
 
             foreach ($id_administrasi as $key => $value) {
                 DB::table('penilaianadministrasi')->where('id', $value)->insert([
-                    'penilaian_id' => $penilaian,   
+                    'penilaian_id' => $penilaian,
                     'administrasi_id' => $value,
                     'poin' => $minus[$value],
                 ]);
@@ -168,11 +168,11 @@ class PenilaianController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            // dd($th);
-            return response()->json([
-                'status' => 99,
-                'message' => 'Terjadi Kesalahan!'
-            ]);
+            dd($th);
+            // return response()->json([
+            //     'status' => 99,
+            //     'message' => 'Terjadi Kesalahan!'
+            // ]);
         }
     }
 
@@ -181,19 +181,19 @@ class PenilaianController extends Controller
         $grup_id = $req->grup_id;
         $idnya = $req->idnya;
         $poin_plus = $req->poin_plus;
-        
+
         $id_administrasi = $req->id_administrasi;
         $poin_min = $req->poin_min;
 
         $id_penilaian = Penilaian::where('grup_id', $grup_id)->value('id');
-        
+
         try {
             DB::beginTransaction();
 
             foreach ($idnya as $v) {
                 DB::table('penilaianitem')->where('id', $v)->update([
                     'plus' => $poin_plus[$v],
-                ]);   
+                ]);
             }
 
             foreach ($id_administrasi as $key => $value) {
@@ -203,7 +203,7 @@ class PenilaianController extends Controller
             }
 
             $this->updatePenilaianHeader($id_penilaian);
-            
+
             DB::commit();
             return response()->json([
                 'status' => 200,
