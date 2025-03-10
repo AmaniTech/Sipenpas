@@ -13,4 +13,14 @@ class PenilaianItem extends Model
     {
         return $this->belongsTo(Penilaian::class, 'penilaian_id');
     }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    public function subkategori()
+    {
+        return $this->belongsTo(SubKategori::class, 'sub_kategori_id');
+    }
 }

@@ -29,5 +29,10 @@ class Penilaian extends Model
         return $this->hasMany(PenilaianItem::class, 'penilaian_id');
     }
 
+    public function penilaianadministrasi()
+    {
+        return $this->hasMany(PenilaianAdministrasi::class);
+    }
+
 
 }
