@@ -56,6 +56,12 @@
                         <p>Penilaian</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('rekap.index') }}" class="nav-link {{ Route::currentRouteName() == 'rekap.index' ? 'active' : '' }}">
+                        <i class="bi bi-person-vcard-fill"></i>
+                        <p>Rekap</p>
+                    </a>
+                </li>
                 <li class="nav-header">SETTING</li>
                 <li class="nav-item">
                     <a href="{{ route('setting') }}"

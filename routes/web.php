@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/administrasi/update/{id}', [AdministrasiController::class, 'update'])->name('administrasi.update');
     Route::delete('/administrasi/delete/{id}', [AdministrasiController::class, 'delete'])->name('administrasi.delete');
     Route::get('/administrasi/print', [AdministrasiController::class, 'print'])->name('administrasi.print');
-    Route::get('/admin/rekap', [RekapController::class, 'index'])->name('rekap.index');
+    Route::get('/rekap', [RekapController::class, 'index'])->name('rekap.index');
     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::put('/setting/update/{id}', [SettingController::class, 'update'])->name('setting.update');
 });
