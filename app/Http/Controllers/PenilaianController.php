@@ -9,6 +9,8 @@ use App\Models\SubKategori;
 use App\Models\Juri;
 use App\Models\Kategori;
 use App\Models\Administrasi;
+use App\Models\PenilaianAdministrasi;
+use App\Models\PenilaianItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -32,7 +34,8 @@ class PenilaianController extends Controller
                 $x = Penilaian::where('grup_id', $item->id)->value('status');
                 if ($x == 'A') {
                     return '
-                        <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a>
+                        <a href="' . route('penilaian.a', $item->id) . '" class="btn btn-sm btn-primary">Nilai</a> &nbsp;
+                        <a href="' . route('rekaptim', $item->id) . '" class="btn btn-sm btn-primary">Rekap</a>
                     ';
                 }else if (empty($x)) {
                     return '
@@ -241,5 +244,13 @@ class PenilaianController extends Controller
             'status' => 200,
             'message' => 'Sukses!'
         ]);
+    }
+
+    public function rekapnilai($id)
+    {
+        $penilaian = Penilaian::with('grup')->where('grup_id', $id)->first();
+        $item = PenilaianItem::with('penilaian', 'kategori', 'subkategori')->where('penilaian_id', $penilaian->id)->get();
+        $minus = PenilaianAdministrasi::with('administrasi')->where('penilaian_id', $penilaian->id)->get();
+        return view('rekaptim', compact('penilaian', 'item', 'minus'));
     }
 }

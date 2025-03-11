@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/administrasi/delete/{id}', [AdministrasiController::class, 'delete'])->name('administrasi.delete');
     Route::get('/administrasi/print', [AdministrasiController::class, 'print'])->name('administrasi.print');
     Route::get('/rekap', [RekapController::class, 'index'])->name('rekap.index');
+    Route::get('/rekaptim/{id}', [PenilaianController::class, 'rekapnilai'])->name('rekaptim');
     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::put('/setting/update/{id}', [SettingController::class, 'update'])->name('setting.update');
 });
