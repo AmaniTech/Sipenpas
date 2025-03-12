@@ -63,7 +63,6 @@
 <body>
     <div class="container-fluid mt-5">
         <div class="row">
-            {{-- {{dd($item)}} --}}
             @foreach ($item->groupBy('kategori.id') as $kategoriId => $kategoriItems)
                 <div class="col-md-4">
                     <div class="p-4 border rounded-lg shadow-md mb-4">
@@ -81,14 +80,12 @@
                 </div>
             @endforeach
 
-            <h1>
-                Minus
-            </h1>
+
+
+            <h1>Minus</h1>
 
             <div class="p-4 border rounded-lg shadow-md mb-4">
                 @foreach ($minus->groupBy('administrasi.id') as $administrasiId => $administrasiItems)
-                    {{-- {{dd($administrasiItems)}} --}}
-
 
                     @foreach ($administrasiItems as $subkategoriId => $subkategoriItems)
                         <li>{{ $subkategoriItems->administrasi->nama }} =
