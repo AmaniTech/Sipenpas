@@ -249,8 +249,32 @@ class PenilaianController extends Controller
     public function rekapnilai($id)
     {
         $penilaian = Penilaian::with('grup')->where('grup_id', $id)->first();
-        $item = PenilaianItem::with('penilaian', 'kategori', 'subkategori')->where('penilaian_id', $penilaian->id)->get();
-        $minus = PenilaianAdministrasi::with('administrasi')->where('penilaian_id', $penilaian->id)->get();
-        return view('rekaptim', compact('penilaian', 'item', 'minus'));
+        
+        // $item = PenilaianItem::with('penilaian', 'kategori', 'subkategori')->where('penilaian_id', $penilaian->id)->get();
+        // $minus = PenilaianAdministrasi::with('administrasi')->where('penilaian_id', $penilaian->id)->get();
+        
+        // return view('rekaptim', compact('penilaian', 'item', 'minus'));
+
+        $data = DB::select("SELECT a.juri, a.plus, a.min, c.nama kategoriname, d.nama sub_kategoriname FROM penilaianitem a 
+                            JOIN kategori c ON a.kategori_id = c.id
+                            JOIN sub_kategori d ON a.sub_kategori_id = d.id
+                            WHERE a.penilaian_id = $penilaian->id");
+
+        $minus = DB::select("SELECT a.poin, c.nama FROM penilaianadministrasi a 
+                            JOIN administrasi c ON a.administrasi_id = c.id
+                            WHERE penilaian_id = $penilaian->id");
+
+        $tim = Grup::where('id', $id)->first();
+
+        $groupedData = [];
+        foreach ($data as $item) {
+            $groupedData[$item->kategoriname][$item->sub_kategoriname][] = $item;
+        }
+
+        return view('b', [
+            'groupedData' => $groupedData,
+            'minus' => $minus,
+            'tim' => $tim
+        ]);
     }
 }
