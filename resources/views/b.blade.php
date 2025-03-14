@@ -9,7 +9,7 @@
         .flex-container {
             display: flex;
             flex-wrap: wrap; /* Membuat tabel pindah ke bawah ketika mentok */
-            gap: 20px; /* Jarak antar tabel */
+            gap: 10px; /* Jarak antar tabel */
         }
 
         /* Styling untuk tabel */
@@ -21,7 +21,7 @@
 
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 5px;
             text-align: center;
         }
 
@@ -34,7 +34,7 @@
         }
 
         .tim-info {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             padding: 15px;
             border: 1px solid #ddd;
             background-color: #f9f9f9;
@@ -47,16 +47,31 @@
 </head>
 <body>
     <div class="tim-info">
-        <p><strong>Nama Sekolah :</strong> {{ $tim->asal_sekolah }}</p>
-        <p><strong>Tim :</strong> {{ $tim->tim }}</p>
-        <p><strong>Tingkatan :</strong> {{ $tim->tingkatan }}</p>
+        <table>
+            <tr>
+                <th>Nama Sekolah</th>
+                <th>:</th>
+                <td>{{ $tim->asal_sekolah }}</td>
+            </tr>
+            <tr>
+                <th>Tim</th>
+                <th>:</th>
+                <td>{{ $tim->tim }}</td>
+            </tr>
+            <tr>
+                <th>Tingkatan</th>
+                <th>:</th>
+                <td>{{ $tim->tingkatan }}</td>
+            </tr>
+        </table>
+
     </div>
 
     <div class="flex-container">
         @foreach($groupedData as $kategori => $subKategoriData)
-            <div>
-                <h2>{{ $kategori }}</h2>
-                <table>
+            <div style="font-size: 12px">
+                <h4>{{ $kategori }}</h4>
+                <table style="border: 1px solid black">
                     <thead>
                         <tr>
                             <th>Penilaian</th>
@@ -96,8 +111,8 @@
                 </table>
             </div>
         @endforeach
-            <div>
-                <h2>MINUS</h2>
+            <div style="font-size: 12px">
+                <h4>MINUS</h4>
                 <table>
                     <thead>
                         <tr>
