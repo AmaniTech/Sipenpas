@@ -48,6 +48,7 @@
                                         <th scope="col">No</th>
                                         <th scope="col">Nama Kategori</th>
                                         <th>Jumlah Juri</th>
+                                        <th>Tipe</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -99,6 +100,17 @@
                                                                 <input type="number" class="form-control" id="jml_juri"
                                                                     name="jml_juri" value="{{ $k->jml_juri }}">
                                                             </div>
+                                                            <div class="mb-3">
+                                                                <label for="nama" class="form-label">Tipe</label>
+                                                                <select name="tipe" id="" class="form-select">
+                                                                    <option value="peringkat"
+                                                                        {{ $k->tipe == 'peringkat' ? 'selected' : '' }}>
+                                                                        PERINGKAT</option>
+                                                                    <option value="umum"
+                                                                        {{ $k->tipe == 'umum' ? 'selected' : '' }}>UMUM
+                                                                    </option>
+                                                                </select>
+                                                            </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -136,6 +148,15 @@
                         <div class="mb-3">
                             <label for="nama" class="form-label">Jumlah Juri</label>
                             <input type="number" class="form-control" id="jml_juri" name="jml_juri">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Tipe</label>
+                            <select name="tipe" id="" class="form-select">
+                                <option value="">Pilih Tipe Kategori</option>
+                                <option value="peringkat">PERINGKAT
+                                </option>
+                                <option value="umum">UMUM</option>
+                            </select>
                         </div>
                 </div>
                 <div class="modal-footer">
