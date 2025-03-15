@@ -266,6 +266,19 @@ class PenilaianController extends Controller
 
         $tim = Grup::where('id', $id)->first();
 
+        // peringkat & umum 
+        $totalan = DB::select("SELECT b.nama kategori_nama, SUM(a.plus) total_poin, 'PERINGKAT' tipe
+                                FROM penilaianitem a
+                                JOIN kategori b ON a.kategori_id = b.id
+                                WHERE a.penilaian_id = $penilaian->id AND b.tipe = 'peringkat'
+                                GROUP BY b.id
+                                UNION ALL
+                                SELECT b.nama kategori_nama, SUM(a.plus) total_poin, 'UMUM' tipe
+                                FROM penilaianitem a
+                                JOIN kategori b ON a.kategori_id = b.id
+                                WHERE a.penilaian_id = $penilaian->id AND b.tipe = 'umum'
+                                GROUP BY b.id");
+
         $groupedData = [];
         foreach ($data as $item) {
             $groupedData[$item->kategoriname][$item->sub_kategoriname][] = $item;
@@ -274,7 +287,8 @@ class PenilaianController extends Controller
         return view('b', [
             'groupedData' => $groupedData,
             'minus' => $minus,
-            'tim' => $tim
+            'tim' => $tim,
+            'totalan' => $totalan
         ]);
     }
 }
