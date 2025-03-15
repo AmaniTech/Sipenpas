@@ -132,7 +132,82 @@
                     </tbody>
                 </table>
             </div>
+            
 
+    </div>
+
+    <br>
+
+    <div class="flex-container">
+        {{-- PERINGKAT --}}
+        <div style="font-size: 12px">
+            <h3>PERINGKAT</h3>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nama Kategori</th>
+                        <th>Total Poin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $totalPeringkat = 0;
+                    @endphp
+                    @foreach ($totalan as $item)
+                        @if ($item->tipe === 'PERINGKAT')
+                            <tr>
+                                <td>{{ $item->kategori_nama }}</td>
+                                <td>{{ $item->total_poin }}</td>
+                            </tr>
+                            @php
+                                $totalPeringkat += $item->total_poin;
+                            @endphp
+                        @endif
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>{{ $totalPeringkat }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        {{-- UMUM --}}
+        <div style="font-size: 12px">
+            <h3>UMUM</h3>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nama Kategori</th>
+                        <th>Total Poin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $totalUmum = 0;
+                    @endphp
+                    @foreach ($totalan as $item)
+                        @if ($item->tipe === 'UMUM')
+                            <tr>
+                                <td>{{ $item->kategori_nama }}</td>
+                                <td>{{ $item->total_poin }}</td>
+                            </tr>
+                            @php
+                                $totalUmum += $item->total_poin;
+                            @endphp
+                        @endif
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>{{ $totalUmum }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </body>
 </html>
